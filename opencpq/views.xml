@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="opencpq.list">
+      <field name="name">opencpq list</field>
+      <field name="model">opencpq.opencpq</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="opencpq.action_window">
+      <field name="name">opencpq window</field>
+      <field name="res_model">opencpq.opencpq</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="opencpq.action_server">
+      <field name="name">opencpq server</field>
+      <field name="model_id" ref="model_opencpq_opencpq"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+  
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="opencpq" id="opencpq.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="opencpq.menu_1" parent="opencpq.menu_root"/>
+    <menuitem name="Menu 2" id="opencpq.menu_2" parent="opencpq.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="opencpq.menu_1_list" parent="opencpq.menu_1"
+              action="opencpq.action_window"/>
+    <menuitem name="Server to list" id="opencpq" parent="opencpq.menu_2"
+              action="opencpq.action_server"/>
+    -->
+  </data>
+</openerp>
