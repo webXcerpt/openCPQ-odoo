@@ -5,7 +5,8 @@
     Specifically,
     1. to make the order lines list in the form editable in a pop-up instead of in-line 
     2. to add an iframe to the po-up form-view of the corresponding order line 
-	-->
+    3. Add two dummy-fields to the sales order views 
+    -->
      
     <record id="view_order_form_opencpq" model="ir.ui.view">
         <field name="name">sale.order.form.opencpq</field>
@@ -13,12 +14,13 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']" position="replace">
-                <div>Hallo3</div>
                 <field name="order_line" mode="tree,kanban"
                     attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                     <form string="Sales Order Lines">
                         <group>
                             <group>
+                                <field name="opencpq_url"/>
+                                <field name="opencpq_json"/>
                                 <field name="product_id"
                                     context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
                                     attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('procurement_ids', '!=', [])]}"
@@ -86,6 +88,8 @@
                             context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
                            />
                         <field name="name"/>
+                        <field name="opencpq_url"/>
+                        <field name="opencpq_json"/>
                         <field name="product_uom_qty"
                             string="Ordered Qty"
                             context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
