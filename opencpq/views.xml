@@ -5,7 +5,10 @@
     Specifically,
     1. to make the order lines list in the form editable in a pop-up instead of in-line 
     2. to add an iframe to the po-up form-view of the corresponding order line 
-    3. Add two dummy-fields to the sales order views 
+    3. Add two dummy-fields to the sales order views
+    
+    To discuss:
+    -  d
     -->
      
     <record id="view_order_form_opencpq" model="ir.ui.view">
@@ -13,6 +16,15 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <!-- 
+            ToDo: Try to make the x-path expression as specific as possible instead of using position="replace"
+            Reason: Andere externe modules könnten auch das 
+            Idea: Target the attribute directly and then replace it with nothing e.g. 
+            <xpath expr="//field[@name='order_line']" position="replace">
+            <xpath expr="//field[@name='order_line']&//attribute=editable.." position="replace">
+            
+            
+             -->
             <xpath expr="//field[@name='order_line']" position="replace">
                 <field name="order_line" mode="tree,kanban"
                     attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
