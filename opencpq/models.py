@@ -20,3 +20,5 @@ class SaleOrderLine(models.Model):
     opencpq_url = fields.Char(string='OpenCPQ URL')
     opencpq_json = fields.Char(string='OpenCPQ JSON')
     
+    opencpq_configurator = fields.Char(string='Configurator')
+    

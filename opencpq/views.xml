@@ -81,13 +81,20 @@
                             <field name="invoice_lines"/>
                         </div>
                         <field name="state" invisible="1"/>
-                            <!-- The following Block adds a dummy-iframe -->        	
-							<form string="Embedded Webpage" version="7.0" edit="false" create="false"> 
-								<div style="position:relative; left:0; top:0; width:100%; height:100%;"> 
-									<iframe src="http://opencpq.webxcerpt.com/examples/optical-transport/" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> 
-									</iframe> 
-								</div> 
-							</form>	
+                        
+                        <!-- The following Block adds a dummy-iframe         	
+						<form string="Embedded Webpage" version="7.0" edit="false" create="false"> 
+							<div style="position:relative; left:0; top:0; width:100%; height:100%;"> 
+								<iframe src="http://opencpq.webxcerpt.com/examples/optical-transport/" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> 
+								</iframe> 
+							</div> 
+						</form>
+						-->	
+						
+		                <field name="opencpq_configurator"/>
+                        <widget type="product_configurator">
+                        </widget>						
+						
                     </form>
                     <!-- 
                     The following line deletes in-line editing functionality from the tree view 
