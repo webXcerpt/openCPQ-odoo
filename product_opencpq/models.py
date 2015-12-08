@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
+from openerp import api
+from openerp.osv import fields, osv
 
-# class product_opencpq(models.Model):
-#     _name = 'product_opencpq.product_opencpq'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+class product_template(osv.osv):
+    _inherit = 'product.template'
+    _columns = {
+        'configurator_ok': fields.boolean('Enable the openCPQ Product Configurator', help='Determine if a product can be configured with the openCPQ product configurator.'),
+        'configurator_type': fields.char('Type of Configurator', help='Type a valid configurator name. It must be the same name as the Folder name in the static directory'),    
+    }
