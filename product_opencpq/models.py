@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+''' Old API ''' 
+
 from openerp import api
 from openerp.osv import fields, osv
 
@@ -15,3 +17,6 @@ class product_product(osv.osv):
     _columns = {
         'configuration_result': fields.text('Configuraton', help='This is the result of the configuration on the corresponding template'),        
     }
+       
+    
+            
