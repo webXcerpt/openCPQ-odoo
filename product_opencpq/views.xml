@@ -2,6 +2,7 @@
 <openerp>
   <data>
     
+    <!-- Changes which should be shown on template AND variant views -->
     <record id="opencpq_product_product_template_form" model="ir.ui.view">
 	    <field name="model">product.template</field>
 	    <field name="inherit_id" ref="product.product_template_form_view" />
@@ -12,11 +13,62 @@
 	               <label for="configurator_ok"/>
 	           </div>
 	       </div>
-	       <field name='type' position="after">
-	           <field name="configurator_type" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-	       </field>
 	    </field>
     </record>
-      
+    
+    <!-- 
+    Be Carefull with attribute="replace" in x-path expression, as there are more views which 
+    inherit from "product.product_template_form_view". If necessary it can be handled with 
+    setting the right priority
+     -->
+     
+    <!-- Changes which should be shown ONLY on the template view -->
+        <record id="product_template_only_form_view2" model="ir.ui.view">
+            <field name="name">product.template.product.form2</field>
+            <field name="model">product.template</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+		        <field name='type' position="after">
+		            <field name="configurator_type" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+		        </field>
+            </field>
+        </record>
+    
+    <!-- Changes which should be shown ONLY on the variant view --> 
+        <record id="product_normal_form_view3" model="ir.ui.view">
+            <field name="name">product.product.form3</field>
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="configuration_result" readonly="False" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                </field>
+		        <field name='type' position="after">
+		            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+		        </field>
+            </field>
+        </record>
+        
+        
+        <record id="product_variant_easy_edit_view4" model="ir.ui.view">
+            <field name="name">product.product.view.form.easy4</field>
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field eval="2" name="priority"/>
+            <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+            <field name="arch" type="xml">
+                
+		        <field name='default_code' position="after">
+		            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+		        </field>
+                <field name="attribute_value_ids" position="after">
+                    <field name="configuration_result" readonly="False" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                </field>
+
+            </field>
+        </record>
+       
   </data>
 </openerp>
