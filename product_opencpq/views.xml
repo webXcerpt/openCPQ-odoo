@@ -26,7 +26,6 @@
         <record id="product_template_only_form_view2" model="ir.ui.view">
             <field name="name">product.template.product.form2</field>
             <field name="model">product.template</field>
-            <field name="mode">primary</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
 		        <field name='type' position="after">
@@ -39,7 +38,6 @@
         <record id="product_normal_form_view3" model="ir.ui.view">
             <field name="name">product.product.form3</field>
             <field name="model">product.product</field>
-            <field name="mode">primary</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <field name="type" position="after">
@@ -50,23 +48,18 @@
 		        </field>
             </field>
         </record>
-        
-        
-        <record id="product_variant_easy_edit_view4" model="ir.ui.view">
-            <field name="name">product.product.view.form.easy4</field>
+
+        <!-- 
+		Change the variant_easy_view as well
+		 -->
+        <record id="product_variant_easy_edit_view5" model="ir.ui.view">
+            <field name="name">product.product.view.form.easy</field>
             <field name="model">product.product</field>
-            <field name="mode">primary</field>
-            <field eval="2" name="priority"/>
             <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
             <field name="arch" type="xml">
-                
-		        <field name='default_code' position="after">
-		            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-		        </field>
-                <field name="attribute_value_ids" position="after">
-                    <field name="configuration_result" readonly="False" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                </field>
-
+                <xpath expr="//field[@name='barcode']" position="before">
+                    <field name="configuration_result"/>
+                </xpath>
             </field>
         </record>
        
