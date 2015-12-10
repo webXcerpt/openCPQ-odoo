@@ -34,7 +34,7 @@
             <field name="arch" type="xml">
 		        <div name="options" position="inside">
 		            <div>
-		                <field name="configurator_ok" readonly="True"/>
+		                <field name="configurator_ok" readonly="False"/>
 		                <label for="configurator_ok"/>
 		            </div>
 		        </div>
@@ -50,8 +50,8 @@
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
                     	<group>
-		            		<field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                    		<field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+		            		<field name="configurator_type" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                    		<field name="configuration_result" readonly="1" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
 	                	</group>
 	                	<group>
 		                	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
