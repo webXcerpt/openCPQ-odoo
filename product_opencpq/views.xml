@@ -38,12 +38,27 @@
 		                <label for="configurator_ok"/>
 		            </div>
 		        </div>
+		        <!--  Show openCPQ variables in General Information Tab 
                 <field name="currency_id" position="after">
                     <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 </field>
 		        <field name="currency_id" position="after">
 		            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
 		        </field>
+		         -->
+		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
+	            <xpath expr="//page[@name='sales']" position="after">
+                    <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
+                    	<group>
+		            		<field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                    		<field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+	                	</group>
+	                	<group>
+		                	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
+		                    </widget>
+	                    </group>
+                    </page>
+                </xpath>
             </field>
         </record>
 
@@ -62,6 +77,8 @@
 	                    <field name="configurator_ok" readonly="True"/>
 			            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 	</group>
+                	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
+                    </widget>
                 </sheet>
             </field>
         </record>

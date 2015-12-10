@@ -1,0 +1,24 @@
+CACHE MANIFEST
+# 5cc5fe98a9bb8a5408b9
+
+index.html
+resources/components.json
+resources/materials.tsv
+f4769f9bdb7466be65088239c12046d1.eot
+448c34a56d699c29117adc64c43affeb.woff2
+fa2772327f55d8198301fdb8bcfc8158.woff
+e18bbf611f2a2e43afc071aa2f4e1512.ttf
+89889688147bd7575d6327160d64e760.svg
+a770b6797b68e3f8920e473eb824bac0.gif
+bundle.js
+
+CACHE:
+.
+
+NETWORK:
+http://*
+https://*
+*
+
+SETTINGS:
+prefer-online

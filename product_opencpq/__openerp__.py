@@ -32,4 +32,5 @@
     'demo': [
         'demo.xml',
     ],
+    'qweb': ['static/src/xml/product_opencpq.xml',],
 }

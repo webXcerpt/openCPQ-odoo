@@ -17,6 +17,5 @@ class product_product(osv.osv):
     _columns = {
         'configuration_result': fields.text('Configuraton', help='This is the result of the configuration on the corresponding template'),        
     }
-       
+
     
-            

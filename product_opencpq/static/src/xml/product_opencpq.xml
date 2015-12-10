@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    
+	
+	<t t-name="WidgetConfigurator">
+	    <iframe width="100%" height="100%"
+	        t-attf-src="/product_opencpq/static/{{configurator}}/index.html">
+	    </iframe>
+	</t>
+	
+	
+</templates>
