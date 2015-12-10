@@ -20,7 +20,7 @@
 		                <label for="configurator_ok"/>
 		            </div>
 		        </div>
-		        <field name='type' position="after">
+		        <field name='currency_id' position="after">
 		            <field name="configurator_type" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
 		        </field>
             </field>
