@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   	<data>
-    
-	    <!-- 
-	    Be Carefull with attribute="replace" in x-path expressions, as there are more views which 
-	    inherit from "product.product_template_form_view". If necessary it can be handled with 
+
+	    <!--
+	    Be Carefull with attribute="replace" in x-path expressions, as there are more views which
+	    inherit from "product.product_template_form_view". If necessary it can be handled with
 	    setting the right priority
 	     -->
-	     
+
 	    <!-- Changes which should be shown ONLY on the template view -->
         <record id="product_template_only_form_view2" model="ir.ui.view">
             <field name="name">product.template.product.form2</field>
@@ -25,8 +25,8 @@
 		        </field>
             </field>
         </record>
-    
-    	<!-- Changes which should be shown ONLY on the variant view --> 
+
+    	<!-- Changes which should be shown ONLY on the variant view -->
         <record id="product_normal_form_view3" model="ir.ui.view">
             <field name="name">product.product.form3</field>
             <field name="model">product.product</field>
@@ -34,11 +34,19 @@
             <field name="arch" type="xml">
 		        <div name="options" position="inside">
 		            <div>
-		                <field name="configurator_ok" readonly="False"/>
+                    <!-- ToDo: Only show templates with configurator_ok="True" -->
+                    <field name="template_ok" readonly="False"/>
+		                <label for="template_ok"/>
+                </div>
+                <div>
+                    <field name="product_tmpl_id" attrs="{'invisible': [('template_ok', '=', False)]}"  domain="[('configurator_ok','=',True)]" />
+                </div>
+                <div>
+                    <field name="configurator_ok" attrs="{'invisible': [('template_ok', '=', False)]}" readonly="True"/>
 		                <label for="configurator_ok"/>
 		            </div>
 		        </div>
-		        <!--  Show openCPQ variables in General Information Tab 
+		        <!--  Show openCPQ variables in General Information Tab
                 <field name="currency_id" position="after">
                     <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 </field>
@@ -51,7 +59,7 @@
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
                     	<group>
 		            		<field name="configurator_type" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                    		<field name="configuration_result" readonly="1" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                    		<field name="configuration_result" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
 	                	</group>
 	                	<group>
 		                	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
@@ -62,7 +70,7 @@
             </field>
         </record>
 
-        <!-- 
+        <!--
 		Change the variant_easy_view as well
 		 -->
         <record id="product_variant_easy_edit_view5" model="ir.ui.view">
@@ -73,7 +81,7 @@
                 <sheet position="inside">
                     <group string="Configuration">
 	                    <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-	                    <field name="product_tmpl_id"/> 
+	                    <field name="product_tmpl_id"/>
 	                    <field name="configurator_ok" readonly="True"/>
 			            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 	</group>
@@ -82,18 +90,19 @@
                 </sheet>
             </field>
         </record>
-    
-	    <!-- Changes which should be shown on template AND variant views 
+
+	    <!-- Changes which should be shown on template AND variant views
 	    <record id="opencpq_product_product_template_form" model="ir.ui.view">
 		    <field name="model">product.template</field>
 		    <field name="inherit_id" ref="product.product_template_form_view" />
 		    <field name="arch" type="xml">
 		       <div name="options" position="inside">
-	
+
 		       </div>
 		    </field>
 	    </record>
 	    -->
-       
+
+
   	</data>
 </openerp>
