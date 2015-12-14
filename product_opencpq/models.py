@@ -15,7 +15,7 @@ class product_template(osv.osv):
 class product_product(osv.osv):
     _inherit = 'product.product'
     _columns = {
-        'template_ok': fields.boolean('Use an openCPQ-template', help='...'),
+        'template_ok': fields.boolean('Use an openCPQ-template for this product', help='...'),
         'configuration_result': fields.text('Configuraton', help='This is the result of the configuration on the corresponding template'),
-
+        # configured
     }

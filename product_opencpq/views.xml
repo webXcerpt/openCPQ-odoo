@@ -14,15 +14,15 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
-		        <div name="options" position="inside">
-		            <div>
-		                <field name="configurator_ok"/>
-		                <label for="configurator_ok"/>
-		            </div>
-		        </div>
-		        <field name='currency_id' position="after">
-		            <field name="configurator_type" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-		        </field>
+    		        <div name="options" position="inside">
+    		            <div>
+    		                <field name="configurator_ok"/>
+    		                <label for="configurator_ok"/>
+    		            </div>
+    		        </div>
+    		        <field name='currency_id' position="after">
+    		            <field name="configurator_type" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+    		        </field>
             </field>
         </record>
 
@@ -41,6 +41,7 @@
                 <div>
                     <field name="product_tmpl_id" attrs="{'invisible': [('template_ok', '=', False)]}"  domain="[('configurator_ok','=',True)]" />
                 </div>
+                <!-- Unnoetig -->
                 <div>
                     <field name="configurator_ok" attrs="{'invisible': [('template_ok', '=', False)]}" readonly="True"/>
 		                <label for="configurator_ok"/>
@@ -57,14 +58,14 @@
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                    	<group>
-		            		<field name="configurator_type" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                    		<field name="configuration_result" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-	                	</group>
-	                	<group>
-		                	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-		                    </widget>
-	                    </group>
+                    	  <group>
+		            		        <field name="configurator_type" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                    		    <field name="configuration_result" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+	                	    </group>
+	                	    <group>
+		                	      <widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
+		                        </widget>
+	                      </group>
                     </page>
                 </xpath>
             </field>
@@ -81,12 +82,12 @@
                 <sheet position="inside">
                     <group string="Configuration">
 	                    <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-	                    <field name="product_tmpl_id"/>
+	                    <field name="product_tmpl_id" readonly="True"/>
 	                    <field name="configurator_ok" readonly="True"/>
 			            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 	</group>
                 	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                    </widget>
+                  </widget>
                 </sheet>
             </field>
         </record>
