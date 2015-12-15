@@ -8,7 +8,7 @@ from openerp.osv import fields, osv
 class product_template(osv.osv):
     _inherit = 'product.template'
     _columns = {
-        'configurator_ok': fields.boolean('Enable the openCPQ Product Configurator', help='Determine if a product can be configured with the openCPQ product configurator.'),
+        'configurator_ok': fields.boolean('Enable the openCPQ Product Configurator', help='Determine if a product can be configured with the openCPQ product configurator. Cannot be changed after creation.'),
         'configurator_type': fields.char('Type of Configurator', help='Type a valid configurator name. It must be the same name as the folder name in the static directory'),
     }
 
@@ -84,6 +84,28 @@ class product_template(osv.osv):
                     product_obj.write(cr, uid, [variant_id], {'active': False}, context=ctx)
                     pass
         return True
+
+    '''
+    #
+    brauchen wir doch nicht, da wir es in der view verbieten, einmal
+    abgespeichertes configuration_ok im nachhinein nochmal aendern zu koennen
+    #
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(product_template, self).write(cr, uid, ids, vals, context=context)
+        if 'attribute_line_ids' in vals or vals.get('active') or 'configuration_ok' in vals:
+            #                                                 =============================
+            # changes to configuration_ok also require recomputation of variants
+            self.create_variant_ids(cr, uid, ids, context=context)
+        if 'active' in vals and not vals.get('active'):
+            ctx = context and context.copy() or {}
+            ctx.update(active_test=False)
+            product_ids = []
+            for product in self.browse(cr, uid, ids, context=ctx):
+                product_ids = map(int,product.product_variant_ids)
+            self.pool.get("product.product").write(cr, uid, product_ids, {'active': vals.get('active')}, context=ctx)
+        return res
+    '''
 
 
 class product_product(osv.osv):
