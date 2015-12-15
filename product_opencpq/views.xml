@@ -2,11 +2,19 @@
 <openerp>
   	<data>
 
-	    <!--
-	    Be Carefull with attribute="replace" in x-path expressions, as there are more views which
-	    inherit from "product.product_template_form_view". If necessary it can be handled with
-	    setting the right priority
-	     -->
+      <!--
+        Problem:
+        Create product.product wie bisher ist nicht möglich, da template_ids
+        field required ist..
+            -> Erzeugt warnung beim "create"
+            -> wenn man template_id aus view löscht, funktioniert alles wie bisher
+        Loesung (ToDo):
+        Add 2 Buttons:
+          - in variant view:      second create button:    "create openCPQ product"
+          - in sales.order.line:  second "create and edit: "create and edit openCPQ product"
+
+        -> vereinfacht untenstehende Domains enorm, da bestehende Formviews identisch zum bestehendem odoo bleiben
+      -->
 
 	    <!-- Changes which should be shown ONLY on the template view -->
         <record id="product_template_only_form_view2" model="ir.ui.view">
@@ -16,7 +24,7 @@
             <field name="arch" type="xml">
     		        <div name="options" position="inside">
     		            <div>
-    		                <field name="configurator_ok"/>
+    		                <field name="configurator_ok" attrs="{'readonly': [('id', '!=', False)]}"/>
     		                <label for="configurator_ok"/>
     		            </div>
     		        </div>
@@ -33,38 +41,37 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
 		        <div name="options" position="inside">
-		            <div>
-                    <!-- ToDo: Only show templates with configurator_ok="True" -->
-                    <field name="template_ok" readonly="False"/>
+		            <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': [('id', '!=', False), ('configurator_ok', '=', False)]}">
+                    <!--  -->
+                    <field name="template_ok"/>
 		                <label for="template_ok"/>
                 </div>
-                <div>
-                    <field name="product_tmpl_id" attrs="{'invisible': [('template_ok', '=', False)]}"  domain="[('configurator_ok','=',True)]" />
+                <!-- -->
+                <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': ['|',('template_ok', '=', False),'&amp;',('id', '!=', False), ('configurator_ok', '=', False)]}">
+                <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
+                    <label for="product_tmpl_id"/>
+                    <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}"/>
+
                 </div>
-                <!-- Unnoetig -->
-                <div>
-                    <field name="configurator_ok" attrs="{'invisible': [('template_ok', '=', False)]}" readonly="True"/>
-		                <label for="configurator_ok"/>
+                <!--
+                Unnoetig und verwirrend: div attrs="{'invisible': [('template_ok', '=', False)]}"
+                Wir brauchen das Feld configurator_ok trotzdem. Fuer Domains weiter unten!
+                -->
+                <div invisible='True'>
+                    <field name="configurator_ok" readonly="True"/>
+		                <label for="configurator_ok" />
 		            </div>
 		        </div>
-		        <!--  Show openCPQ variables in General Information Tab
-                <field name="currency_id" position="after">
-                    <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                </field>
-		        <field name="currency_id" position="after">
-		            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-		        </field>
-		         -->
+
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
                     	  <group>
-		            		        <field name="configurator_type" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                    		    <field name="configuration_result" readonly="0" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+		            		        <field name="configurator_type" readonly="1"/>
+                    		    <field name="configuration_result" readonly="1"/>
 	                	    </group>
 	                	    <group>
-		                	      <widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-		                        </widget>
+		                	      <widget type="product_configurator"/>
 	                      </group>
                     </page>
                 </xpath>
@@ -81,13 +88,12 @@
             <field name="arch" type="xml">
                 <sheet position="inside">
                     <group string="Configuration">
-	                    <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-	                    <field name="product_tmpl_id" readonly="True"/>
-	                    <field name="configurator_ok" readonly="True"/>
-			            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                	</group>
-                	<widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                  </widget>
+  	                    <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+  	                    <field name="product_tmpl_id" readonly="True"/>
+  	                    <field name="configurator_ok" readonly="True"/>
+  			                <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                	  </group>
+                	  <widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 </sheet>
             </field>
         </record>
