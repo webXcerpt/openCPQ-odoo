@@ -27,14 +27,26 @@ var ProductConfigurator = form_common.FormWidget.extend({
     },
 
     display_configurator: function() {
+		var tagNo = (window.openCPQTagCount || 0) + 1;
+		window.openCPQTagCount = tagNo;
+		var tag = "tag_" + tagNo;
+		window.getOpenCPQEmbeddingAPI = function(tagFromChild) {
+			if (tagFromChild !== tag)
+				alert("unexpected tag " + tagFromChild + "(expected " + tag + ")");
+			return {
+				outward: function(ctx) {
+					alert("Got a config: " + ctx.value)
+				}
+			};
+		};
         this.$el.html(QWeb.render("WidgetConfigurator", {
-            "configurator": this.field_manager.get_field_value("configurator_type") || 0,
+			"tag": tag,
+            "configurator": this.field_manager.get_field_value("configurator_type"),
         }));
     }
 
 		/*
-		get iframe id
-		provide embedding API for the iframe
+		implement functionality in embeddingAPI:
 		use get_field_value for the url_tag in the iframe
 		use set_field_value for the configuration_result
 		*/
