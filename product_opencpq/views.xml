@@ -44,14 +44,13 @@
 		            <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': [('id', '!=', False), ('configurator_ok', '=', False)]}">
                     <!--  -->
                     <field name="template_ok"/>
-		                <label for="template_ok"/>
+		            <label for="template_ok"/>
                 </div>
                 <!-- -->
                 <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': ['|',('template_ok', '=', False),'&amp;',('id', '!=', False), ('configurator_ok', '=', False)]}">
                 <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
                     <label for="product_tmpl_id"/>
                     <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}"/>
-
                 </div>
                 <!--
                 Unnoetig und verwirrend: div attrs="{'invisible': [('template_ok', '=', False)]}"
@@ -66,13 +65,13 @@
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                    	  <group>
-		            		        <field name="configurator_type" readonly="1"/>
-                    		    <field name="configuration_result" readonly="1"/>
-	                	    </group>
-	                	    <group>
-		                	      <widget type="product_configurator"/>
-	                      </group>
+                    	<group>
+		            		<field name="configurator_type" invisible="True"/>
+                    		<field name="configuration_result" invisible="True"/>
+	                	</group>
+	                	<group>
+		                    <widget type="product_configurator"/>
+	                    </group>
                     </page>
                 </xpath>
             </field>
