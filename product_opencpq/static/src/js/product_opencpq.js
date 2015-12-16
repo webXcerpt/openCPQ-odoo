@@ -13,13 +13,6 @@ var QWeb = core.qweb;
 var _t = core._t;
 
 var ProductConfigurator = form_common.FormWidget.extend({
-    /* Approach -
-		start: function() {
-        this.$el.append("<div>Test!</div>");
-        this.$el.append('<div><iframe src="/opencpq/static/optical-transport/index.html" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> </iframe></div>');
-    },
-    */
-
 	start: function() {
         this._super();
         this.field_manager.on("field_changed:configurator_type", this, this.display_configurator);
@@ -30,12 +23,29 @@ var ProductConfigurator = form_common.FormWidget.extend({
 		var tagNo = (window.openCPQTagCount || 0) + 1;
 		window.openCPQTagCount = tagNo;
 		var tag = "tag_" + tagNo;
+		var field_manager = this.field_manager;
 		window.getOpenCPQEmbeddingAPI = function(tagFromChild) {
-			if (tagFromChild !== tag)
-				alert("unexpected tag " + tagFromChild + "(expected " + tag + ")");
+			// With some non-standard user behavior (such as using "back" and
+			// "reload" in the browser) it might happen that a configurator in
+			// an iframe tries to retrieve its embedding API when we already
+			// provide an embedding API for some other iframe.  We detect such
+			// cases by checking the tag passed via the iframe URL.
+			if (tagFromChild !== tag) {
+				alert(
+					"Error (configurator embedding): " +
+					"Unexpected tag: '" + tagFromChild + "' " +
+					"(expected: '" + tag + "')"
+				);
+				return {
+					outward: function() {
+						alert("Error: Configurator not embedded properly.");
+					}
+				}
+			}
 			return {
+				config: JSON.parse(field_manager.get_field_value("configuration_result")),
 				outward: function(ctx) {
-					alert("Got a config: " + ctx.value)
+					field_manager.set_values({configuration_result: JSON.stringify(ctx.value)});
 				}
 			};
 		};
@@ -44,14 +54,6 @@ var ProductConfigurator = form_common.FormWidget.extend({
             "configurator": this.field_manager.get_field_value("configurator_type") || "no-configurator",
         }));
     }
-
-		/*
-		implement functionality in embeddingAPI:
-		use get_field_value for the url_tag in the iframe
-		use set_field_value for the configuration_result
-		*/
-
-
 });
 
 core.form_custom_registry.add('product_configurator', ProductConfigurator);
