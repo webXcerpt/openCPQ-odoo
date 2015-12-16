@@ -20,7 +20,7 @@ var ProductConfigurator = form_common.FormWidget.extend({
     },
     */
 
-		start: function() {
+	start: function() {
         this._super();
         this.field_manager.on("field_changed:configurator_type", this, this.display_configurator);
         this.display_configurator();
