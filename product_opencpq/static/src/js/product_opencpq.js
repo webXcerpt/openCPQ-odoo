@@ -45,7 +45,10 @@ var ProductConfigurator = form_common.FormWidget.extend({
 			return {
 				config: JSON.parse(field_manager.get_field_value("configuration_result")),
 				outward: function(ctx) {
-					field_manager.set_values({configuration_result: JSON.stringify(ctx.value)});
+					var value = ctx.value;
+					if (value === undefined)
+						value = null;
+					field_manager.set_values({configuration_result: JSON.stringify(value)});
 				}
 			};
 		};
