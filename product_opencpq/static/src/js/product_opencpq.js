@@ -41,7 +41,7 @@ var ProductConfigurator = form_common.FormWidget.extend({
 		};
         this.$el.html(QWeb.render("WidgetConfigurator", {
 			"tag": tag,
-            "configurator": this.field_manager.get_field_value("configurator_type"),
+            "configurator": this.field_manager.get_field_value("configurator_type") || "no-configurator",
         }));
     }
 
