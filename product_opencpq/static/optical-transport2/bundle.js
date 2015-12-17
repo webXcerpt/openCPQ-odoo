@@ -62971,16 +62971,10 @@
 	}
 
 	function findEmbeddingAPI() {
-		try {
-			var search = window.location.search;
-			if (!search.startsWith("?")) throw "missing or unexpected query";
-			var tag = parseQuery(search.substring(1)).find(function (p) {
-				return p.name === "tag";
-			}).value;
-			return window.parent.getOpenCPQEmbeddingAPI(tag);
-		} catch (e) {
-			return null;
-		}
+		var _window = window;
+		var frameElement = _window.frameElement;
+
+		return frameElement && frameElement.openCPQEmbeddingAPI;
 	}
 
 	function embed(type, embeddingAPI, initialCtxProvider, htmlElement) {

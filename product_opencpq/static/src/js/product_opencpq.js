@@ -20,42 +20,30 @@ var ProductConfigurator = form_common.FormWidget.extend({
     },
 
     display_configurator: function() {
-		var tagNo = (window.openCPQTagCount || 0) + 1;
-		window.openCPQTagCount = tagNo;
-		var tag = "tag_" + tagNo;
 		var field_manager = this.field_manager;
-		window.getOpenCPQEmbeddingAPI = function(tagFromChild) {
-			// With some non-standard user behavior (such as using "back" and
-			// "reload" in the browser) it might happen that a configurator in
-			// an iframe tries to retrieve its embedding API when we already
-			// provide an embedding API for some other iframe.  We detect such
-			// cases by checking the tag passed via the iframe URL.
-			if (tagFromChild !== tag) {
-				alert(
-					"Error (configurator embedding): " +
-					"Unexpected tag: '" + tagFromChild + "' " +
-					"(expected: '" + tag + "')"
-				);
-				return {
-					outward: function() {
-						alert("Error: Configurator not embedded properly.");
-					}
-				}
+		var configurator =
+			this.field_manager.get_field_value("configurator_type")
+			|| "no-configurator";
+		var url = "/product_opencpq/static/" + configurator + "/index.html";
+		// Creating iframe with jQuery instead of QWeb so that we can tweak it.
+		var $iframe = $("<iframe width='100%' height='400px' />");
+        this.$el.empty().html($iframe);
+		$iframe[0].openCPQEmbeddingAPI = {
+			config: JSON.parse(
+				field_manager.get_field_value("configuration_result")
+			),
+			outward: function(ctx) {
+				var value = ctx.value;
+				if (value === undefined)
+					value = null;
+				field_manager.set_values({
+					configuration_result: JSON.stringify(value)
+				});
 			}
-			return {
-				config: JSON.parse(field_manager.get_field_value("configuration_result")),
-				outward: function(ctx) {
-					var value = ctx.value;
-					if (value === undefined)
-						value = null;
-					field_manager.set_values({configuration_result: JSON.stringify(value)});
-				}
-			};
 		};
-        this.$el.html(QWeb.render("WidgetConfigurator", {
-			"tag": tag,
-            "configurator": this.field_manager.get_field_value("configurator_type") || "no-configurator",
-        }));
+		// Set property openCPQEmbeddingAPI **before** src attribute so that
+		// it is available in time to JS code inside the iframe.
+		$iframe.attr("src", url);
     }
 });
 
