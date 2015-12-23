@@ -4,10 +4,10 @@
 
       <!--
         Problem:
-        Create product.product wie bisher ist nicht möglich, da template_ids
+        Create product.product wie bisher ist nicht möglich, da product_tmpl_id
         field required ist..
             -> Erzeugt warnung beim "create"
-            -> wenn man template_id aus view löscht, funktioniert alles wie bisher
+            -> wenn man product_tmpl_id aus view löscht, funktioniert alles wie bisher
         Loesung (ToDo):
         Add 2 Buttons:
           - in variant view:      second create button:    "create openCPQ product"
@@ -50,8 +50,7 @@
                 <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': ['|',('template_ok', '=', False),'&amp;',('id', '!=', False), ('configurator_ok', '=', False)]}">
                 <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
                     <label for="product_tmpl_id"/>
-                    <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}"/>
-
+                    <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}" attrs="{'required': [('id', '!=', False)]}"/>
                 </div>
                 <!--
                 Unnoetig und verwirrend: div attrs="{'invisible': [('template_ok', '=', False)]}"
