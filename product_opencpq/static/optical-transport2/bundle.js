@@ -759,7 +759,7 @@
 						{ header: React.createElement(
 								"h3",
 								null,
-								"Configuration (optical transport 2)"
+								"Configuration"
 							) },
 						innerNode.render()
 					)
@@ -62929,15 +62929,12 @@
 
 			embeddingAPI.inward = function (config) {
 				return delay(function () {
-					if (!deepEqual(_this.state.config, config)) _this.state.config = config;
+					if (!deepEqual(_this.state.config, config)) _this.setState({ config: config });
 				});
 			};
-			// ### remove embeddingAPI.inward upon unload?
 			return { config: embeddingAPI.config };
 		},
 		render: function render() {
-			var _this2 = this;
-
 			var _props = this.props;
 			var type = _props.type;
 			var embeddingAPI = _props.embeddingAPI;
@@ -62946,29 +62943,21 @@
 			var ctx = _extends({}, initialCtxProvider(), {
 				value: this.state.config,
 				updateTo: function updateTo(newValue) {
-					return _this2.setState({ config: newValue });
+					embeddingAPI.outwardValue && embeddingAPI.outwardValue(newValue);
 				}
 			});
 			var node = type.makeNode(ctx);
+			// "outward" is deprecated, provide "outwardCtx" in the embedding API
+			// instead.
 			delay(function () {
-				return embeddingAPI.outward(ctx);
+				return embeddingAPI.outward && embeddingAPI.outward(ctx);
+			});
+			delay(function () {
+				return embeddingAPI.outwardCtx && embeddingAPI.outwardCtx(ctx);
 			});
 			return node.render();
 		}
 	});
-
-	function parseQueryPair(pair) {
-		var i = pair.indexOf("=");
-		if (i < 0) throw "'=' missing in query pair";
-		return {
-			name: decodeURIComponent(pair.substring(0, i)),
-			value: decodeURIComponent(pair.substring(i + 1))
-		};
-	}
-
-	function parseQuery(query) {
-		return query.split("&").map(parseQueryPair);
-	}
 
 	function findEmbeddingAPI() {
 		var _window = window;
