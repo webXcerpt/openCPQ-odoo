@@ -3,9 +3,13 @@
 
         <template id="assets_backend" name="project assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
+                <!-- Mit folgendem bootstrab-link haetten auch glyphicons statt fontawesome funktioniert..aber sowieso sehr aehnlich.
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+                -->
+                <link rel="stylesheet" href="/product_opencpq/static/src/css/product_opencpq.css"/>
                 <script type="text/javascript" src="/product_opencpq/static/src/js/product_opencpq.js"></script>
             </xpath>
         </template>
-        
+
     </data>
 </openerp>

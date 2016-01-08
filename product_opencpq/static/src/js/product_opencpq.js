@@ -20,7 +20,11 @@ var ProductConfigurator = form_common.FormWidget.extend({
     },
     */
 
-		start: function() {
+	events: {
+		"click .oe_opencpq_button": "button_clicked",
+	},
+
+	start: function() {
         this._super();
         this.field_manager.on("field_changed:configurator_type", this, this.display_configurator);
         this.display_configurator();
@@ -30,7 +34,17 @@ var ProductConfigurator = form_common.FormWidget.extend({
         this.$el.html(QWeb.render("WidgetConfigurator", {
             "configurator": this.field_manager.get_field_value("configurator_type") || 0,
         }));
-    }
+		// Zeige Vollbild-Button nur an wenn im edit mode - eher als Beispiel gedacht
+        //this.$("button").toggle(! this.get("effective_readonly"));
+    },
+
+	button_clicked: function() {
+		this.$el.toggleClass('oe_opencpq_fullscreen');
+		this.$el.find('.oe_opencpq_button').toggleClass('fa-expand fa-compress');
+		//this.$el.find('.oe_opencpq_button span').toggleClass('glyphicon-resize-full glyphicon-resize-small');
+		this.view.$el.find('.oe_chatter').toggle();
+		$('#oe_main_menu_navbar').toggle();
+	}
 
 		/*
 		get iframe id

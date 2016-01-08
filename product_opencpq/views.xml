@@ -2,20 +2,6 @@
 <openerp>
   	<data>
 
-      <!--
-        Problem:
-        Create product.product wie bisher ist nicht möglich, da product_tmpl_id
-        field required ist..
-            -> Erzeugt warnung beim "create"
-            -> wenn man product_tmpl_id aus view löscht, funktioniert alles wie bisher
-        Loesung (ToDo):
-        Add 2 Buttons:
-          - in variant view:      second create button:    "create openCPQ product"
-          - in sales.order.line:  second "create and edit: "create and edit openCPQ product"
-
-        -> vereinfacht untenstehende Domains enorm, da bestehende Formviews identisch zum bestehendem odoo bleiben
-      -->
-
 	    <!-- Changes which should be shown ONLY on the template view -->
         <record id="product_template_only_form_view2" model="ir.ui.view">
             <field name="name">product.template.product.form2</field>
@@ -74,6 +60,11 @@
 	                      </group>
                     </page>
                 </xpath>
+                <!-- Sheet breiter machen als sonst in odoo - auskommentiert, da Vollbild Button besser fuer UX
+                <xpath expr="//sheet" position="attributes">
+                    <attribute name="class">oe_form_sheet_full_screen</attribute>
+                </xpath>
+                 -->
             </field>
         </record>
 

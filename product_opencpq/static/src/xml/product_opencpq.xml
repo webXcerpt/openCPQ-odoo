@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
-    
-	
+
 	<t t-name="WidgetConfigurator">
-	    <iframe width="100%" height="100%"
+        <!-- glyphicons klappen leider nicht, da nicht von odoo web bereitgestellt
+		<button class="btn btn-default oe_opencpq_button">
+			<span class="glyphicon glyphicon-resize-full"></span> Switch Fullscreen
+		</button>
+		-->
+        <div class="oe_opencpq_button_rel">
+			<button class="fa fa-expand btn btn-default oe_opencpq_button"> fullscreen</button>
+		</div>
+	    <iframe class="oe_opencpq_iframe" width="100%" height="100%"
 	        t-attf-src="/product_opencpq/static/{{configurator}}/index.html">
 	    </iframe>
 	</t>
-	
-	
+
 </templates>
