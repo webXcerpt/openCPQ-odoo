@@ -2,6 +2,42 @@
 <openerp>
   	<data>
 
+        <record model="ir.ui.view" id="wizard_form_view_opencpq">
+            <field name="name">wizard.form</field>
+            <field name="model">product_opencpq.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Configure this product">
+                    <group>
+                        <field name="product_id" readonly="1"/>
+                        <field name="configurator_type" readonly="1"/>
+                        <field name="configuration_result" readonly="0"/>
+                    </group>
+                    <!-- -->
+                    <group>
+                          <widget type="product_configurator"/>
+                    </group>
+
+                    <footer>
+                        <button name="subscribe" type="object"
+                                string="Subscribe" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <act_window id="launch_opencpq_wizard"
+                    name="Configure this product"
+                    src_model="product.product"
+                    res_model="product_opencpq.wizard"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi">
+        </act_window>
+
+
 	    <!-- Changes which should be shown ONLY on the template view -->
         <record id="product_template_only_form_view2" model="ir.ui.view">
             <field name="name">product.template.product.form2</field>
@@ -51,8 +87,14 @@
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                    	  <group>
-		            		        <field name="configurator_type" readonly="1"/>
+                            <div class="oe_button_box" name="button_box1">
+                                <button string="Configure this product" type="action"
+                                    name="%(launch_opencpq_wizard)d"
+                                    attrs="{'invisible': [('configurator_ok','!=',True)]}"
+                                    />
+                            </div>
+                            <group>
+		            		    <field name="configurator_type" readonly="1"/>
                     		    <field name="configuration_result" readonly="1"/>
 	                	    </group>
 	                	    <group>
