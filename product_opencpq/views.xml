@@ -10,20 +10,18 @@
                     <group>
                         <field name="product_id" readonly="1"/>
                         <field name="configurator_type" readonly="1"/>
-                        <field name="configuration_result" readonly="0"/>
+                        <field name="configuration_text" readonly="0"/>
+                        <field name="configuration_html" readonly="0"/>
                     </group>
-                    <!-- -->
                     <group>
                           <widget type="product_configurator"/>
                     </group>
-
                     <footer>
-                        <button name="subscribe" type="object"
-                                string="Subscribe" class="oe_highlight"/>
+                        <button name="configuration_save" type="object"
+                                string="Save Configuration" class="oe_highlight"/>
                         or
                         <button special="cancel" string="Cancel"/>
                     </footer>
-
                 </form>
             </field>
         </record>
@@ -95,11 +93,9 @@
                             </div>
                             <group>
 		            		    <field name="configurator_type" readonly="1"/>
-                    		    <field name="configuration_result" readonly="1"/>
+                                <field name="configuration_text" readonly="1"/>
+                                <field name="configuration_html" readonly="0"/>
 	                	    </group>
-	                	    <group>
-		                	      <widget type="product_configurator"/>
-	                      </group>
                     </page>
                 </xpath>
                 <!-- Sheet breiter machen als sonst in odoo - auskommentiert, da Vollbild Button besser fuer UX
@@ -120,7 +116,7 @@
             <field name="arch" type="xml">
                 <sheet position="inside">
                     <group string="Configuration">
-  	                    <field name="configuration_result" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+  	                    <field name="configuration_text" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
   	                    <field name="product_tmpl_id" readonly="True"/>
   	                    <field name="configurator_ok" readonly="True"/>
   			                <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>

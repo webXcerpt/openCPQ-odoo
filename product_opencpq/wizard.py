@@ -7,12 +7,15 @@ class Wizard(models.TransientModel):
         return self.env['product.product'].browse(self._context.get('active_id'))
 
     product_id = fields.Many2one('product.product',
-        string="Proooduct", required=True, default=_default_opencpq_product)
+        string="Product", required=True, default=_default_opencpq_product)
     configurator_type = fields.Char(string='Type of Configurator', related='product_id.configurator_type')
-    configuration_result = fields.Text(string='Configuraton', help='This is the result of the configuration',related='product_id.configuration_result')
+    configuration_text = fields.Text(string='Configuraton', related='product_id.configuration_text')
+    configuration_html = fields.Html(string='Configuration Html', related='product_id.configuration_html')
+
 
     @api.multi
-    def subscribe(self):
+    def configuration_save(self):
         #self.product_id.configuration_result |= self.configuration_result
-        self.product_id.configuration_result = self.configuration_result
+        self.product_id.configuration_text = self.configuration_text
+        self.product_id.configuration_html = self.configuration_html
         return {}
