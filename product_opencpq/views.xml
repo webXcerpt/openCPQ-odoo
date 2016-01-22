@@ -85,17 +85,18 @@
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                            <div class="oe_button_box" name="button_box1">
-                                <button string="Configure this product" type="action"
-                                    name="%(launch_opencpq_wizard)d"
-                                    attrs="{'invisible': [('configurator_ok','!=',True)]}"
-                                    />
-                            </div>
-                            <group>
-		            		    <field name="configurator_type" readonly="1"/>
-                                <field name="configuration_text" readonly="1"/>
-                                <field name="configuration_html" readonly="0"/>
-	                	    </group>
+                        <widget type="configuration_dialog"/>
+                        <div class="oe_button_box" name="button_box1">
+                            <button string="Configure this product" type="action"
+                                name="%(launch_opencpq_wizard)d"
+                                attrs="{'invisible': [('configurator_ok','!=',True)]}"
+                                />
+                        </div>
+                        <group>
+	            		    <field name="configurator_type" readonly="1"/>
+                            <field name="configuration_text" readonly="1"/>
+                            <field name="configuration_html" readonly="0"/>
+                	    </group>
                     </page>
                 </xpath>
                 <!-- Sheet breiter machen als sonst in odoo - auskommentiert, da Vollbild Button besser fuer UX
