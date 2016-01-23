@@ -37,7 +37,7 @@ var ConfigurationDialog = form_common.FormWidget.extend({
     display_dialog: function() {
         var self = this;
         self.dialog = new Dialog(this, {
-            size: 'large', //'fullscreen', // ToDo: Dialog widget erweitern, damits den case fullscreen auch gibt
+            size: 'fullscreen',  // ToDo: Dialog widget erweitern, damits den case fullscreen auch gibt
             title: _t('Product Configuration'),
             buttons: [
                     {
