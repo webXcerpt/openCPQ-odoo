@@ -16,26 +16,26 @@
 	</t>
 
 	<!-- Hier werden die Buttons definiert fuer das dialog-widget-->
-	<t t-name="opencpq_button">
+	<t t-name="opencpq_configure">
         <div class="o_opencpq">
-			<div t-attf-class="opencpq_button_class">
-                <button t-attf-class="btn btn-sm btn-default">
-					<span class="fa fa-cogs"/>
-					Configure
-                </button>
-            </div>
+			<button class="opencpq_button_class btn btn-sm btn-default">
+				<span class="fa fa-cogs"/>
+				Configure
+			</button>
         </div>
+		<div class="opencpq_html_class">
+		</div>
     </t>
 
 	<!-- Hier wird der Inhalt des Dialogs definiert-->
 	<t t-name="OpencpqConfigurator">
 		<div class="form-group">
 			<label for='name' class='control-label'>Text-Result</label>
-			<input type='text' class="opencpq_input_text" value="Test-Text-input"/>
+			<input type='text' class="opencpq_input_text" t-attf-value="{{configuration_text}}"/>
 		</div>
 		<div class="form-group">
 			<label for='name' class='control-label'>HTML-Result</label>
-			<input type='text' class="opencpq_input_html" value="Test-HTML-input"/>
+			<input type='text' class="opencpq_input_html" t-attf-value="{{configuration_html}}"/>
 		</div>
 	    <iframe class="oe_opencpq_iframe" width="100%" height="100%"
 	        t-attf-src="/product_opencpq/static/{{configurator}}/index.html">
