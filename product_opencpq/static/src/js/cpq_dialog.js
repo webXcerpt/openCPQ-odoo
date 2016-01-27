@@ -70,8 +70,8 @@ var ConfigurationDialog = form_common.FormWidget.extend({
 
     save_configuration: function() {
         this.field_manager.set_values({
-            "configuration_text": $(".opencpq_input_html").val(),
-            "configuration_html": $(".opencpq_input_text").val(),
+            "configuration_text": $(".opencpq_input_text").val(),
+            "configuration_html": $(".opencpq_input_html").val(),
         });
     }
 
