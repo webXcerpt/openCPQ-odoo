@@ -1,0 +1,15 @@
+<odoo>
+
+        <record id="view_invoice_form_opencpq_print" model="ir.ui.view">
+            <field name="name">account.invoice.form.opencpq.print</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="print_inline_invoice"></field>
+                    <field name="print_appendix_invoice"></field>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

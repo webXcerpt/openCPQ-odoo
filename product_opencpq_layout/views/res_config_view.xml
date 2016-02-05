@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sale Order Print Settings -->
+    <record id="opencpq_settings_view_form" model="ir.ui.view">
+        <field name="name">product_opencpq_layout.opencpq_settings</field>
+        <field name="model">product_opencpq_layout.opencpq_settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure Default Print Settings" class="oe_form_configuration">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header>
+                <group string="Configure Default Print Settings" name="opencpq_grp">
+                    <field name="default_print_inline_saleorder"/>
+                    <field name="default_print_appendix_saleorder"/>
+                    <field name="default_print_inline_invoice"/>
+                    <field name="default_print_appendix_invoice"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_opencpq_configuration" model="ir.actions.act_window">
+        <field name="name">Configure Default Print Settings</field>
+        <field name="res_model">product_opencpq_layout.opencpq_settings</field>
+        <field name="view_id" ref="opencpq_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem name="OpenCPQ Print Settings" id="product_opencpq_layout.opencpq_settings" parent="base.menu_sale_config"
+        action="product_opencpq_layout.action_opencpq_configuration"/>
+
+
+    <!-- Invoice Print Settings -->
+    <record id="opencpq_settings_view_form2" model="ir.ui.view">
+        <field name="name">product_opencpq_layout.opencpq_settings</field>
+        <field name="model">product_opencpq_layout.opencpq_settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure Default Print Settings" class="oe_form_configuration">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header>
+                <group string="Configure Default Print Settings" name="opencpq_grp">
+                    <field name="default_print_inline_saleorder"/>
+                    <field name="default_print_appendix_saleorder"/>
+                    <field name="default_print_inline_invoice"/>
+                    <field name="default_print_appendix_invoice"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_opencpq_configuration2" model="ir.actions.act_window">
+        <field name="name">Configure Default Print Settings</field>
+        <field name="res_model">product_opencpq_layout.opencpq_settings</field>
+        <field name="view_id" ref="opencpq_settings_view_form2"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem name="OpenCPQ Print Settings" id="product_opencpq_layout.opencpq_settings2" parent="account.menu_finance_configuration"
+        action="product_opencpq_layout.action_opencpq_configuration2"/>
+
+</odoo>

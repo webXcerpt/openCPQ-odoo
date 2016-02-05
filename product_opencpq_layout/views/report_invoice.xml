@@ -1,0 +1,33 @@
+<odoo>
+
+        <template id="report_invoice_opencpq" inherit_id="account.report_invoice_document">
+            <xpath expr="//table//td[1]" position="replace">
+                <td>
+                    <span t-field="l.name"/>
+                    <t t-if="l.invoice_id.print_inline_invoice and l.product_id.configuration_html">
+                        <br/>
+                        Configuration:
+                        <br/>
+                        <span t-field="l.product_id.configuration_html"/>
+                    </t>
+                </td>
+            </xpath>
+            <xpath expr="//div[@class='page']" position="inside">
+                <p style="page-break-before:always;"> </p>
+                <h2>
+                    <span>Appendix: Product Configuration</span>
+                </h2>
+                <br/>
+                <t t-foreach="o.invoice_line_ids" t-as="l">
+                   <t t-if="l.invoice_id.print_appendix_invoice and l.product_id.configuration_html">
+                       <h3>
+                           <span t-field="l.name"/>
+                       </h3>
+                       <span t-field="l.product_id.configuration_html"/>
+                       <br/>
+                   </t>
+                </t>
+            </xpath>
+        </template>
+
+</odoo>

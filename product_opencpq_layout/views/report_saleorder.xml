@@ -1,0 +1,33 @@
+<odoo>
+
+        <template id="report_saleorder_opencpq" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//table//td[1]" position="replace">
+                <td>
+                    <span t-field="l.name"/>
+                    <t t-if="l.order_id.print_inline_saleorder and l.product_id.configuration_html">
+                        <br/>
+                        Configuration:
+                        <br/>
+                        <span t-field="l.product_id.configuration_html"/>
+                    </t>
+                </td>
+            </xpath>
+            <xpath expr="//div[@class='page']" position="inside">
+                <p style="page-break-before:always;"> </p>
+                <h2>
+                    <span>Appendix: Product Configuration</span>
+                </h2>
+                <br/>
+                <t t-foreach="doc.order_line" t-as="l">
+                   <t t-if="l.order_id.print_appendix_saleorder and l.product_id.configuration_html">
+                       <h3>
+                           <span t-field="l.name"/>
+                       </h3>
+                       <span t-field="l.product_id.configuration_html"/>
+                       <br/>
+                   </t>
+                </t>
+            </xpath>
+        </template>
+
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+
+        <record id="view_order_form_opencpq_print" model="ir.ui.view">
+            <field name="name">sale.order.form.opencpq.print</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="print_inline_saleorder"></field>
+                    <field name="print_appendix_saleorder"></field>
+                    <!-- Alternative Darstellung: Die beiden Felder sind unsichtbar,
+                         solange nicht geklickt ist, dass man die Konfiguration ueberhaupt drucken will
+                    <field name="print_config_order"></field>
+                    <field name="print_inline" attrs="{'invisible': [('print_config_order','=',False)]}"></field>
+                    <field name="print_appendix" attrs="{'invisible': [('print_config_order','=',False)]}"></field>
+                    -->
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
