@@ -3,21 +3,23 @@
     'name': "product_opencpq",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Integrate & manage your product variants with the openCPQ 
+        product configurator""",
 
     'description': """
-        Long description of module's purpose
+openCPQ - Odoo Integration
+==========================
+
+* Integrate & manage your product variants with the openCPQ product configurator
+
+* It's more scalable and flexible than the handling of product configuration in odoo-core
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "webXcerpt Software GmbH, Sebastian Schmidt",
+    'website': "www.webxcerpt.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Sales',
+    'version': '9.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base','sale'],

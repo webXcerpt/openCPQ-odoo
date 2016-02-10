@@ -1,0 +1,117 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">openCPQ - Odoo Integration</h2>
+            <h3 class="oe_slogan">Integrate & manage your product variants with the openCPQ product configuration framework</h3>
+        </div>
+        <div class="oe_span12">
+            <p class="oe_mt32">
+                OpenCPQ is a JavaScript library for product configuration. With recent advances in web technology it has become quite easy to implement product configurators and other configure/price/quote (CPQ) functionality as JavaScript programs running directly in the web browser without the need for a server-side configuration engine. openCPQ is a library providing generic building blocks for CPQ applications. This allows the application code to concentrate on the product model and to ignore technical details of the configurator. The openCPQ approach provides advantages both for using a product configurator and for modeling products.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Configuring in the Browser </h2>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="openCPQ-demo-in-browser.png">
+            </div>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                Running product configurators in the browser has advantages for several stakeholders:
+                <ul>
+                    <li>
+                        Users enjoy a smooth user experience since they need not wait for round-trips to the server after each input. Users can even use the configurator in offline mode when they are disconnected from the internet.
+                    </li>
+                    <li>
+                        IT operations need not worry about scaling up a server-side configuration engine since for the server a configurator is just a set of static pages.
+                    </li>
+                    <li>
+                        System integrators implementing a custom user interface can easily access the local configuration state in the browser without the complexity of requests for remote data.
+                    </li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Product Modeling in JavaScript</h2>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                Writing product models as JavaScript programs using the openCPQ library provides the following advantages to modellers:
+                <ul>
+                    <li>
+                        openCPQ requires little learning effort since it is just a thin layer on top of general-purpose web technology.
+                    </li>
+                    <li>
+                        Modern JavaScript and the openCPQ API support declarative modeling based on a functional programming style. Nevertheless imperative code can be integrated seamlessly where appropriate.
+                    </li>
+                    <li>
+                        Having a full-fledged programming language at hand, modelers can make configurators behave as required and are not subject to the restrictions imposed by a configuration engine.
+                    </li>
+                    <li>
+                        JavaScript functions and classes can be used to implement powerful domain-specific concepts on top of the generic openCPQ API. These functions and classes can be used where needed instead of repeating the implementation every time. This makes models much easier to understand and maintain.
+                    </li>
+                    <li>
+                        Modelers can use state-of-the-art tools such as code editors, debuggers, version-control systems, and integrated development environments. They do not depend on the modeling and model-management tools provided by a configuration framework
+                    </li>
+                </ul>
+            </p>
+        </div>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="openCPQ-JavaScript-logo.png">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Technology </h2>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="openCPQ-lambda.svg">
+            </div>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                Configurator users make their choices one by one. After each user input the user interface has to be updated to reflect the new configurator state: Other choices might become available or unavailable, computed values might change, conflicts might appear or disappear, and so on.
+            </p>
+            <p class="oe_mt32">
+                Unlike the configurator engines of other CPQ tools openCPQ does not incrementally propagate user input to the configurator state and the user interface. It rather recomputes the entire configurator state and user interface from the accumulated user input. This declarative approach from functional programming is much easier to understand and less error-prone. And it fits perfectly with the ideas behind the user-interface library React. openCPQ uses React to finally determine and execute the required incremental updates to the user-interface.
+            </p>
+            <p class="oe_mt32">
+                Even the core application state, namely the accumulated user input is not modified by new input. A new copy of the state is generated instead. This usage of immutable data structures (another concept from functional programming) makes it easy to provide undo and redo functionality.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Professional Open Source </h2>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                openCPQ has been released as open-source code under the liberal MIT license.
+            </p>
+            <p class="oe_mt32">
+                Professional services and support for openCPQ are available from webXcerpt. Contact us for discussing your configuration tasks.
+            </p>
+            <p class="oe_mt32">
+                The source code is hosted at Github, making it easy for you to clone the project or even to fork it and to adapt it to your needs. We encourage you to submit your enhancements back (as pull requests) for inclusion in the mainline development.
+            </p>
+        </div>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="openCPQ-logo.png">
+            </div>
+        </div>
+    </div>
+</section>
