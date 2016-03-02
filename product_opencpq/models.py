@@ -8,24 +8,37 @@ from openerp.osv import fields, osv
 class product_template(osv.osv):
     _inherit = 'product.template'
     _columns = {
-        'configurator_ok': fields.boolean('Enable the openCPQ Product Configurator', help='Determine if a product can be configured with the openCPQ product configurator. Cannot be changed after creation.'),
-        'configurator_type': fields.char('Type of Configurator', help='Type a valid configurator name. It must be the same name as the folder name in the static directory'),
+        'configurator_ok': fields.boolean('Enable the openCPQ Product Configurator', help='Can this product be configured with the openCPQ product configurator? This field cannot be changed after creation.'),
+        'configurator_type': fields.char('Type of Configurator', help='A valid configurator name. It must be the same name as the folder name in the static directory.'),
     }
 
+    # Copied from [odoo]/addons/product/product.py and adapted.
+    # (Unfortunately that function is quite monolithic.  So we were not able to
+    # add our functionality without copying the original code.)
+    #
+    # Idea: Copy create_variant_ids to another addon, on which the current one
+    # depends.  There the function just provides a hook allowing to skip the
+    # expansion for certain product templates (and a default implementation of
+    # the hook returning that the expansion should not be skipped).  Here we
+    # would just implement the hook, returning that the expansion should be
+    # skipped for openCPQ-configurable product templates.
     def create_variant_ids(self, cr, uid, ids, context=None):
         product_obj = self.pool.get("product.product")
         ctx = context and context.copy() or {}
-        if ctx.get("create_product_variant"):  # falls in rekursiven aufruf, damit nicht endloser aufruf
+        if ctx.get("create_product_variant"):
             return None
 
         ctx.update(active_test=False, create_product_variant=True)
 
         tmpl_ids = self.browse(cr, uid, ids, context=ctx)
-
         for tmpl_id in tmpl_ids:
 
+            # -- openCPQ --
+            # If the current product template is configurable with openCPQ,
+            # skip the automatic generation of product variants.
             if tmpl_id.configurator_ok:
                 continue
+            # - end openCPQ --
 
             # list of values combination
             variant_alone = []
@@ -86,16 +99,13 @@ class product_template(osv.osv):
         return True
 
     '''
-    #
-    brauchen wir doch nicht, da wir es in der view verbieten, einmal
-    abgespeichertes configuration_ok im nachhinein nochmal aendern zu koennen
-    #
-
+    # Not needed since the view already makes sure that the value of
+    # configuration_ok cannot be edited once it has been stored.
     def write(self, cr, uid, ids, vals, context=None):
         res = super(product_template, self).write(cr, uid, ids, vals, context=context)
         if 'attribute_line_ids' in vals or vals.get('active') or 'configuration_ok' in vals:
             #                                                 =============================
-            # changes to configuration_ok also require recomputation of variants
+            # openCPQ: Changes to configuration_ok also require recomputation of variants.
             self.create_variant_ids(cr, uid, ids, context=context)
         if 'active' in vals and not vals.get('active'):
             ctx = context and context.copy() or {}
