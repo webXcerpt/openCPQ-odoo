@@ -3,7 +3,8 @@
 
         <template id="assets_backend" name="project assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <!-- Mit folgendem bootstrab-link haetten auch glyphicons statt fontawesome funktioniert..aber sowieso sehr aehnlich.
+                <!-- With this link to bootstrap we could have used glyphicons instead of fontawesome.
+                     But they are quite similar anyway.
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
                 -->
                 <link rel="stylesheet" href="/product_opencpq/static/src/less/cpq_dialog.less" type="text/less"/>

@@ -2,23 +2,18 @@ odoo.define('product.product', function (require) {
 "use strict";
 
 var core = require('web.core');
-var data = require('web.data');
+var data = require('web.data'); // unused
 var form_common = require('web.form_common');
-var formats = require('web.formats');
-var Model = require('web.DataModel');
-var time = require('web.time');
-var utils = require('web.utils');
+var formats = require('web.formats'); // unused
+var Model = require('web.DataModel'); // `Model` is unused, but we might still need to require it.
+var time = require('web.time'); // unused
+var utils = require('web.utils'); // unused
 
 var QWeb = core.qweb;
 var _t = core._t;
 
+// Contents of the configuration dialog ### Is this used?  From the easy view?
 var ProductConfigurator = form_common.FormWidget.extend({
-    /* Approach -
-		start: function() {
-        this.$el.append("<div>Test!</div>");
-        this.$el.append('<div><iframe src="/opencpq/static/optical-transport/index.html" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> </iframe></div>');
-    },
-    */
 
 	events: {
 		"click .oe_opencpq_button": "button_clicked",
@@ -32,9 +27,9 @@ var ProductConfigurator = form_common.FormWidget.extend({
 
     display_configurator: function() {
         this.$el.html(QWeb.render("WidgetConfigurator", {
-            "configurator": this.field_manager.get_field_value("configurator_type") || 0,
+            "configurator_url": this.field_manager.get_field_value("configurator_type") || 0,
         }));
-		// Zeige Vollbild-Button nur an wenn im edit mode - eher als Beispiel gedacht
+		// Display fullscreen button only when in edit mode - this is primarily meant as an example
         //this.$("button").toggle(! this.get("effective_readonly"));
     },
 
@@ -45,14 +40,6 @@ var ProductConfigurator = form_common.FormWidget.extend({
 		this.view.$el.find('.oe_chatter').toggle();
 		$('#oe_main_menu_navbar').toggle();
 	}
-
-		/*
-		get iframe id
-		provide embedding API for the iframe
-		use get_field_value for the url_tag in the iframe
-		use set_field_value for the configuration_result
-		*/
-
 
 });
 

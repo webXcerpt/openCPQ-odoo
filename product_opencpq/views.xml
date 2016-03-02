@@ -2,7 +2,7 @@
 <openerp>
   	<data>
 
-        <record model="ir.ui.view" id="wizard_form_view_opencpq">
+        <record id="wizard_form_view_opencpq" model="ir.ui.view">
             <field name="name">wizard.form</field>
             <field name="model">product_opencpq.wizard</field>
             <field name="arch" type="xml">
@@ -85,7 +85,7 @@
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                        <widget type="configuration_dialog"/>
+                        <widget type="configuration_widget"/>
                         <!-- <div class="oe_button_box" name="button_box1">
                             <button string="Configure this product" type="action"
                                 name="%(launch_opencpq_wizard)d"
