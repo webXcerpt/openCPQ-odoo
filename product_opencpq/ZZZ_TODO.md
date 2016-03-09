@@ -173,3 +173,48 @@ To Do
 - Add demo data to `demo.xml`.
 - Add files `LICENSE` (containing the LGPLv3) and `COPYRIGHT`.
   Add a note that Odoo is the copyright holder of `create_variant_ids`.
+
+Open Questions
+--------------
+
+### Serialization
+
+When serializing configurations, should sequences (i.e. strings and arrays)
+be prefixed with their lengths?
+- Length prefixes make the data easier to parse but harder to edit.
+- Without an explicit length prefix we cannot represent sparse arrays.
+  But that does not hurt as long as we can represent arrays with (explicitly)
+  undefined members.
+- Parsing should be somewhat efficient since we have a round-trip after each
+  user input.
+- We can avoid parsing if we do the round-trip only inside the configurator
+  window.  But having full round-trips has the advantage
+- Undo chains can become long.  (Since we support aliasing, this is not as
+  problematic as without aliasing.)
+
+### Possible protocol changes
+
+- Don't round-trip to parent window upon each user input.
+- When saving ("OK" button), then the parent initiates a roundtrip to get the
+  config state.
+  - The child freezes the UI and message handling before sending the answer.
+  - The parent sets a timeout so that if the child is unresponsive, the user
+    gets a chance to cancel.
+    (Not really needed.  The "Cancel" button remains active anyway.)
+- Undo/Redo is managed by the child but has its UI in the parent.
+  For this, the child accepts messages of type "undo" or "redo".
+  The child would also have to tell the parent when
+- Technically it would be easier to have "OK"/"Undo"/"Redo" buttons in the
+  child window.  But "Cancel" must be in the parent window, just in case the
+  child freezes due to a bug.  So it's probably nicer to have all buttons in the
+  parent.
+  (No, there is anyway an "x" button at the top right corner of the dialog.)
+
+Probably it's best to move the buttons to the child and to let the child handle
+round-trips.  Still in the child UI the buttons should not scroll with the
+actual configurator UI.
+
+### Parent-side communication code
+
+- Should there be a utility lib provided by openCPQ with an API that's more
+  comfortable than raw messaging?

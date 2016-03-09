@@ -31,7 +31,9 @@
 
 	<!-- Contents of the configuration dialog -->
 	<t t-name="OpenCPQConfigurator">
-	    <iframe class="oe_opencpq_iframe" width="100%" height="100%" t-attf-src="{{configurator_url}}" />
+	    <iframe class="oe_opencpq_iframe"
+			width="100%" height="100%" style="padding: 0px; border-width: 0px;"
+			t-attf-src="{{configurator_url}}" />
 	</t>
 
 </templates>

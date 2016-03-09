@@ -37,48 +37,25 @@ var nextConfiguratorTag = 0;
 var currentConfigurationDialog = null;
 
 window.addEventListener("message", function(event) {
-    console.log({event});
     if (currentConfigurationDialog)
         currentConfigurationDialog.handleMessageEvent(event);
 });
 
 var ConfigurationDialog = Dialog.extend({
     init: function (parent) {
-        this.field_manager = parent.field_manager;
-
-        console.log(this.field_manager.get_field_value("configuration_text"));
-        this.configuration_text = JSON.parse(this.field_manager.get_field_value("configuration_text"));
-        this.configuration_html = this.field_manager.get_field_value("configuration_html");
+        var fm = parent.field_manager;
         this.configuratorReady = false;
-        this.configuratorURL = this.field_manager.get_field_value("configurator_type") || "not_configurable", // #### full URL as fallback value!
+        this.configuratorURL = resolveURL(fm.get_field_value("configurator_type") || "not_configurable"), // #### URL as fallback value!
+        this.configuratorURLWithoutFragment = this.configuratorURL.replace(/#.*/, '');
         this.configuratorTag = "cfg_" + nextConfiguratorTag++;
 
-        var self = this;
         var options = {
-            title: _t('Product Configuration'),
-            buttons: [
-                {
-                    text: _t("OK"),
-                    classes: 'btn-primary',
-                    click: function () {
-                        self.save_configuration();
-                    },
-                    close: true
-                },
-                {
-                    text: _t("Cancel"),
-                    close: true
-                },
-                {
-                    text: _t("Undo (#### unimplemented)")
-                },
-                {
-                    text: _t("Redo (#### unimplemented)")
-                },
-            ],
-            $content: QWeb.render('OpenCPQConfigurator', {
+            title: _t('Configuration: ' + (fm.get_field_value("name") || _t("unnamed product"))),
+            // No buttons here.  They live inside the configuration iframe.
+            buttons: [],
+            $content: $(QWeb.render('OpenCPQConfigurator', {
                 "configurator_url": this.configuratorURL
-            }),
+            })),
         };
         this._super(parent, options);
         this.$modal.find('.modal-dialog').addClass('modal-fullscreen');
@@ -86,31 +63,31 @@ var ConfigurationDialog = Dialog.extend({
 
     open: function() {
         currentConfigurationDialog = this;
-        this._super();
+        this._super.apply(this, arguments);
         this.configuratorWindow = this.$modal.find(".oe_opencpq_iframe")[0].contentWindow;
     },
 
-    close: function() {
+    destroy: function() {
         currentConfigurationDialog = null;
         this._super.apply(this, arguments);
     },
 
-    save_configuration: function() {
-        this.field_manager.set_values({
-            configuration_text: JSON.stringify(this.configuration_text),
-            configuration_html: this.configuration_html,
-        });
+    set_buttons: function() {
+        this._super.apply(this, arguments);
+        // Buttons are provided by the configurator inside the iframe rather
+        // than by this dialog.  So we don't need the footer.
+        this.$footer.remove();
     },
 
     sendToConfigurator: function(action, args) {
         this.configuratorWindow.postMessage(
             {
-                url: this.configuratorURL,
+                url: this.configuratorURLWithoutFragment,
                 tag: this.configuratorTag,
                 action,
                 args
             },
-            getOrigin(this.configuratorURL)
+            getOrigin(this.configuratorURLWithoutFragment)
         );
     },
 
@@ -123,16 +100,8 @@ var ConfigurationDialog = Dialog.extend({
             alert("Received message from unexpected window.");
             return;
         }
-        if (data.url !== this.configuratorURL) {
-            // Actually we should no more come here since we suppress history recording
-            // in `loadConfigurator()`.
-            // ### And for now this file does not support configurator switching anyway.
-            alert(
-                "Received message from configurator with unexpected URL. " +
-                "(This may have been caused by using your browser's \"back\" button.) \n" +
-                "The appropriate configurator will be loaded."
-            );
-            loadConfigurator(); // ####
+        if (data.url !== this.configuratorURLWithoutFragment) {
+            alert("Received message with unexpected configurator URL:\n" + data.url);
             return;
         }
         if (this.configuratorReady) {
@@ -140,20 +109,20 @@ var ConfigurationDialog = Dialog.extend({
                 if (data.tag === undefined && data.action === "ready") {
                     alert(
                         "It looks like you reloaded the configurator frame. " +
-                        "The configurator will be set to the current configuration."
+                        "The configurator will be re-initialized."
                     );
                 }
                 else {
                     alert(
-                        `Received message with tag ${this.configuratorTag} from configurator. ` +
-                        `Expected: ${data.tag}.`);
+                        "Received message with tag '" + this.configuratorTag + "' from configurator. " +
+                        "Expected '" + data.tag + "'.");
                     return;
                 }
             }
         }
         else {
             if (data.tag !== undefined) {
-                alert(`Did not expect a tag (${data.tag}) from a newly loaded configurator.`);
+                alert("Did not expect a tag ('" + data.tag + "') from a newly loaded configurator.");
                 return;
             }
         }
@@ -161,19 +130,30 @@ var ConfigurationDialog = Dialog.extend({
         switch(data.action) {
             case "ready":
                 this.configuratorReady = true;
-                console.log(this.configuration_text);
                 this.sendToConfigurator("init", {
-                    config: this.configuration_text,
+                    config: JSON.parse(this.getParent().field_manager.get_field_value("configuration_text")),
                     embedderOrigin: getOrigin(document.URL)
                 });
                 break;
-            case "value":
-                this.configuration_text = data.args;
-                this.sendToConfigurator("value", data.args);
+            case "close": {
+                var args = data.args;
+                if (args) {
+                    var newValues = {};
+                    if (args.hasOwnProperty("value"))
+                        newValues.configuration_text = JSON.stringify(args.value);
+                    if (args.hasOwnProperty("html"))
+                        newValues.configuration_html = args.html
+                    if (args.hasOwnProperty("price"))
+                        newValues.lst_price = args.price;
+                    var fm = this.getParent().field_manager;
+                    fm.set_values(newValues);
+                    // Mark form as dirty.  Apparently this is not being done by
+                    // fm.set_values(...).
+                    fm.do_notify_change();
+                }
+                this.destroy();
                 break;
-            case "results":
-                this.configuration_html = data.args.html;
-                break;
+            }
             default:
                 throw "unexpected message action: " + data.action;
         }
@@ -190,8 +170,9 @@ var ConfigurationWidget = form_common.FormWidget.extend({
 	},
 
 	start: function() {
-        this._super();
+        this._super.apply(this, arguments);
         this.$el.html(QWeb.render("opencpq_configure", {}));
+
 		this.display_html();
 		this.field_manager.on("field_changed:configuration_html", this, this.display_html);
 

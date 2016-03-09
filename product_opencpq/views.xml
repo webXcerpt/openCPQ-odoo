@@ -62,48 +62,38 @@
             <field name="arch" type="xml">
 		        <div name="options" position="inside">
 		            <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': [('id', '!=', False), ('configurator_ok', '=', False)]}">
-                    <!--  -->
-                    <field name="template_ok"/>
+                        <!--  -->
+                        <field name="template_ok"/>
 		                <label for="template_ok"/>
-                </div>
+                    </div>
                 <!-- -->
                 <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': ['|',('template_ok', '=', False),'&amp;',('id', '!=', False), ('configurator_ok', '=', False)]}">
-                <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
+                    <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
                     <label for="product_tmpl_id"/>
                     <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}" attrs="{'required': [('id', '!=', False)]}"/>
                 </div>
                 <!--
+                #### @Sebastian: Was bedeutet der folgende Kommentar?
                 Unnoetig und verwirrend: div attrs="{'invisible': [('template_ok', '=', False)]}"
                 Wir brauchen das Feld configurator_ok trotzdem. Fuer Domains weiter unten!
                 -->
                 <div invisible='True'>
                     <field name="configurator_ok" readonly="True"/>
-		                <label for="configurator_ok" />
+		            <label for="configurator_ok" />
 		            </div>
 		        </div>
 
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
 	            <xpath expr="//page[@name='sales']" position="after">
                     <page name="configuration" string="Configuration" attrs="{'invisible': [('configurator_ok', '=', False)]}">
-                        <widget type="configuration_widget"/>
-                        <!-- <div class="oe_button_box" name="button_box1">
-                            <button string="Configure this product" type="action"
-                                name="%(launch_opencpq_wizard)d"
-                                attrs="{'invisible': [('configurator_ok','!=',True)]}"
-                                />
-                        </div> -->
                         <group>
+                            <widget type="configuration_widget"/>
 	            		    <field name="configurator_type" invisible="True"/>
                             <field name="configuration_text" invisible="True"/>
                             <field name="configuration_html" widget="html_frame" invisible="True"/>
                 	    </group>
                     </page>
                 </xpath>
-                <!-- Sheet breiter machen als sonst in odoo - auskommentiert, da Vollbild Button besser fuer UX
-                <xpath expr="//sheet" position="attributes">
-                    <attribute name="class">oe_form_sheet_full_screen</attribute>
-                </xpath>
-                 -->
             </field>
         </record>
 
