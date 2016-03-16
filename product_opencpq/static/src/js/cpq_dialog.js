@@ -131,7 +131,7 @@ var ConfigurationDialog = Dialog.extend({
             case "ready":
                 this.configuratorReady = true;
                 this.sendToConfigurator("init", {
-                    config: JSON.parse(this.getParent().field_manager.get_field_value("configuration_text")),
+                    config: this.getParent().field_manager.get_field_value("configuration_text"),
                     embedderOrigin: getOrigin(document.URL)
                 });
                 break;
@@ -140,7 +140,7 @@ var ConfigurationDialog = Dialog.extend({
                 if (args) {
                     var newValues = {};
                     if (args.hasOwnProperty("value"))
-                        newValues.configuration_text = JSON.stringify(args.value);
+                        newValues.configuration_text = args.value;
                     if (args.hasOwnProperty("html"))
                         newValues.configuration_html = args.html
                     if (args.hasOwnProperty("price"))
