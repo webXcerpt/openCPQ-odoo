@@ -75,13 +75,12 @@ architecture.)
     (Click the violet Ubuntu icon in the toolbar and type "terminal".
 	Select the "Terminal" application.)
   - In the terminal:
-  	<br>
-    (The `sudo` commands will occasionally ask for the password.)
 	- Install Git and Wkhtmltopdf:
 
 	  ```sh
 	  sudo apt-get install git wkhtmltopdf
 	  ```
+      If you are asked for the password, it's again "osboxes.org".
 	- Install Odoo:
 
 	  ```sh
