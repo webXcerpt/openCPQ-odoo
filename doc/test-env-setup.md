@@ -219,13 +219,14 @@ directories and invoke the required build steps:
 	  to restart Odoo and/or to clear your browser cache before reloading.*
 - Updating openCPQ:
   - Execute in the terminal window:
-      ```sh
-      cd ~/openCPQ-example-optical-transport/node_modules/opencpq
-      git pull
-      npm install # Only needed if package.json has changed.
-      npm run compile
-      cd
-	  ```
+
+    ```sh
+    cd ~/openCPQ-example-optical-transport/node_modules/opencpq
+    git pull
+    npm install # Only needed if package.json has changed.
+    npm run compile
+    cd
+    ```
   - Restart the configurator server as described below.
 - Updating the optical-transport example:
   - In the terminal where the configurator code is served, stop the server with
