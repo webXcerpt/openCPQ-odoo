@@ -84,8 +84,8 @@ var ConfigurationDialog = Dialog.extend({
             {
                 url: this.configuratorURLWithoutFragment,
                 tag: this.configuratorTag,
-                action,
-                args
+                action: action,
+                args: args,
             },
             getOrigin(this.configuratorURLWithoutFragment)
         );
