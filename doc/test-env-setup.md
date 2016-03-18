@@ -78,35 +78,42 @@ architecture.)
   	<br>
     (The `sudo` commands will occasionally ask for the password.)
 	- Install Git and Wkhtmltopdf:
+
 	  ```sh
 	  sudo apt-get install git wkhtmltopdf
 	  ```
 	- Install Odoo:
+
 	  ```sh
 	  wget -O- https://raw.githubusercontent.com/odoo/odoo/9.0/odoo.py \
 	  | python
 	  ```
 	  Get a coffee while it installs.
     - Install node and npm:
+
 	  ```sh
 	  wget -O- https://nodejs.org/dist/v4.4.0/node-v4.4.0-linux-x64.tar.xz \
 	  | tar xvfJ -
 	  ```
 	- Make the binaries available to the shell:
+
 	  ```sh
 	  ln -s node-v4.4.0-linux-x64/bin .
 	  ```
 	  Now log out and log in again so that the shell detects the `bin` directory.
 	- Install npm packages which are apparently needed by odoo but not installed
 	  automatically by the odoo installer:
+
 	  ```sh
 	  npm install -g less less-plugin-clean-css
 	  ```
     - Install the openCPQ/Odoo integration:
+
 	  ```sh
 	  git clone https://github.com/webXcerpt/openCPQ-odoo.git
 	  ```
     - Install the optical-networks demo:
+
 	  ```sh
 	  git clone https://github.com/webXcerpt/openCPQ-example-optical-transport.git
 	  cd openCPQ-example-optical-transport
@@ -124,12 +131,14 @@ architecture.)
 	  ```
 	- Serve the configurator: Right-click into the terminal window and open
 	  another terminal.  In the new terminal
+
 	  ```sh
 	  cd openCPQ-example-optical-transport
 	  npm run dev-server
 	  ```
 	- Start Odoo:  Right-click into the first terminal window and open another
 	  terminal.  In the new terminal
+
 	  ```sh
 	  cd odoo
 	  ./odoo.py \
@@ -188,6 +197,7 @@ directories and invoke the required build steps:
 
 - Updating the openCPQ/Odoo integration:
   - Execute in the terminal window:
+
     ```sh
     cd ~/openCPQ-odoo
     git pull
@@ -209,6 +219,7 @@ directories and invoke the required build steps:
 	  to restart Odoo and/or to clear your browser cache before reloading.*
 - Updating openCPQ:
   - Execute in the terminal window:
+
     ```sh
     cd ~/openCPQ-example-optical-transport/node_modules/opencpq
     git pull
@@ -222,11 +233,13 @@ directories and invoke the required build steps:
     control-C.
 	You should now be in directory `~/openCPQ-example-optical-transport`.
   - Execute in that terminal:
+
     ```sh
     git pull
     npm install # Only needed if package.json has changed.
     ```
   - Start the server for the configurator code again:
+
     ```sh
     npm run dev-server
     ```
@@ -260,6 +273,7 @@ follow these steps:
 - Inside the virtual machine, in the terminal running the configurator server:
   - Stop the server with control-C.
   - Start it again with
+
   	```sh
 	./node_modules/.bin/webpack-dev-server --progress --watch --host 0.0.0.0
 	```
