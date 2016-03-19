@@ -22,7 +22,8 @@ function resolveURL(url) {
 
 function getOrigin(url) {
     urlParser.href = url;
-    var origin = urlParser.origin;
+    // Microsoft Edge does not support urlParser.origin.
+    var origin = urlParser.protocol + "//" + urlParser.host;
     // File URLs are supported for development and test situations.
     // According to
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
