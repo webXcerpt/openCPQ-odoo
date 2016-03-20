@@ -2,41 +2,7 @@
 <openerp>
   	<data>
 
-        <record id="wizard_form_view_opencpq" model="ir.ui.view">
-            <field name="name">wizard.form</field>
-            <field name="model">product_opencpq.wizard</field>
-            <field name="arch" type="xml">
-                <form string="Configure this product">
-                    <group>
-                        <field name="product_id" readonly="1"/>
-                        <field name="configurator_type" readonly="1"/>
-                        <field name="configuration_text" readonly="0"/>
-                        <field name="configuration_html" readonly="0"/>
-                    </group>
-                    <group>
-                          <widget type="product_configurator"/>
-                    </group>
-                    <footer>
-                        <button name="configuration_save" type="object"
-                                string="Save Configuration" class="oe_highlight"/>
-                        or
-                        <button special="cancel" string="Cancel"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
-
-        <act_window id="launch_opencpq_wizard"
-                    name="Configure this product"
-                    src_model="product.product"
-                    res_model="product_opencpq.wizard"
-                    view_mode="form"
-                    target="new"
-                    key2="client_action_multi">
-        </act_window>
-
-
-	    <!-- Changes which should be shown ONLY on the template view -->
+	    <!-- Extensions to the product-template view -->
         <record id="product_template_only_form_view2" model="ir.ui.view">
             <field name="name">product.template.product.form2</field>
             <field name="model">product.template</field>
@@ -54,7 +20,7 @@
             </field>
         </record>
 
-    	<!-- Changes which should be shown ONLY on the variant view -->
+    	<!-- Extensions to the product-variant view -->
         <record id="product_normal_form_view3" model="ir.ui.view">
             <field name="name">product.product.form3</field>
             <field name="model">product.product</field>
@@ -97,38 +63,36 @@
             </field>
         </record>
 
+        <!-- Extend the variant_easy_view as well -->
         <!--
-		Change the variant_easy_view as well
-		 -->
+            TODO: Remove this?  After all, the easy view is only reachable
+            for Odoo-style variants, not for openCPQ variants.
+            Or should we make the easy view accessible for openCPQ variants as
+            well?
+        -->
         <record id="product_variant_easy_edit_view5" model="ir.ui.view">
             <field name="name">product.product.view.form.easy</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
             <field name="arch" type="xml">
                 <sheet position="inside">
+                    <!--
+                        TODO: Can't we control invisibility on the level of group "Configuration"?
+                        Or is there a technical reason requiring this control on the field level?
+                        Why are some fields not made invisible?
+                        Why is the widget not part of the group?
+                    -->
                     <group string="Configuration">
-  	                    <field name="configuration_text" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                        <field name="configuration_text" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                        <field name="configuration_html" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
   	                    <field name="product_tmpl_id" readonly="True"/>
   	                    <field name="configurator_ok" readonly="True"/>
-  			                <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                	  </group>
-                	  <widget type="product_configurator" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+  			            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                	</group>
+                	<widget type="configuration_widget" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 </sheet>
             </field>
         </record>
-
-	    <!-- Changes which should be shown on template AND variant views
-	    <record id="opencpq_product_product_template_form" model="ir.ui.view">
-		    <field name="model">product.template</field>
-		    <field name="inherit_id" ref="product.product_template_form_view" />
-		    <field name="arch" type="xml">
-		       <div name="options" position="inside">
-
-		       </div>
-		    </field>
-	    </record>
-	    -->
-
 
   	</data>
 </openerp>

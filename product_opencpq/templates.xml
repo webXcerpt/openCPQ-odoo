@@ -8,8 +8,6 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
                 -->
                 <link rel="stylesheet" href="/product_opencpq/static/src/less/cpq_dialog.less" type="text/less"/>
-                <link rel="stylesheet" href="/product_opencpq/static/src/css/product_opencpq.css"/>
-                <script type="text/javascript" src="/product_opencpq/static/src/js/product_opencpq.js"></script>
                 <script type="text/javascript" src="/product_opencpq/static/src/js/cpq_dialog.js"></script>
             </xpath>
         </template>

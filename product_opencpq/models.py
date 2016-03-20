@@ -9,7 +9,8 @@ class product_template(osv.osv):
     _inherit = 'product.template'
     _columns = {
         'configurator_ok': fields.boolean('Enable the openCPQ Product Configurator', help='Can this product be configured with the openCPQ product configurator? This field cannot be changed after creation.'),
-        'configurator_type': fields.char('Type of Configurator', help='A valid configurator name. It must be the same name as the folder name in the static directory.'),
+        # TODO rename to 'configurator_url'
+        'configurator_type': fields.char('Configurator URL', help='Reference to the configurator to be used for this product.'),
     }
 
     # Copied from [odoo]/addons/product/product.py and adapted.
