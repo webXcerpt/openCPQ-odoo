@@ -7,8 +7,8 @@
                      But they are quite similar anyway.
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
                 -->
-                <link rel="stylesheet" href="/product_opencpq/static/src/less/cpq_dialog.less" type="text/less"/>
-                <script type="text/javascript" src="/product_opencpq/static/src/js/cpq_dialog.js"></script>
+                <link rel="stylesheet" href="/product_opencpq/static/src/less/product_opencpq.less" type="text/less"/>
+                <script type="text/javascript" src="/product_opencpq/static/src/js/product_opencpq.js"></script>
             </xpath>
         </template>
 

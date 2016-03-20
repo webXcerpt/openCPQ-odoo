@@ -75,29 +75,25 @@ Contributions to Client-Side Code<br>(Managed on the Server Side)
 - `templates.xml`:
   contributes links to our static resources (JS and styling, but not
   `product_opencpq.xml`) to a top-level odoo page:
-  - `static/src/less/cpq_dialog.less`
-  - `static/src/js/cpq_dialog.js`
+  - `static/src/less/product_opencpq.less`
+  - `static/src/js/product_opencpq.js`
 - `static/src/xml/product_opencpq.xml`:
   templates for dynamic content
-  <br>
-  <em>[For consistency with the JS and style files, this file might be renamed
-  to `cpq_dialog.xml`.  Or better rename the files `cpq_dialog.*` to
-  `product_opencpq.*`]</em>
-  - `opencpq_configure`: (used in `cpq_dialog.js`)
-  - `OpenCPQConfigurator`: (used in `cpq_dialog.js`)
+  - `opencpq_configure`: (used in `product_opencpq.js`)
+  - `OpenCPQConfigurator`: (used in `product_opencpq.js`)
 
 
 Client Side
 -----------
 
-- `static/src/js/cpq_dialog.js`:
+- `static/src/js/product_opencpq.js`:
   - dialog `ConfigurationDialog`: a dialog with specific styling, opened by
     `ConfigurationWidget`
   - form widget `ConfigurationWidget`:
     contents of the configuration tab for product variants
     (used in `product_normal_form_view3` in `views.xml`),
     opens the dialog holding the configuration iframe
-- `static/src/less/cpq_dialog.less`: styling
+- `static/src/less/product_opencpq.less`: styling
 
 
 Dependency Chains
@@ -109,9 +105,9 @@ Dependency Chains
 - Product variant form:
   - odoo standard view `product.product_normal_form_view`
   - extended by view `product_normal_form_view3` (`views.xml`)
-  - uses widget `configuration_widget` (`cpq_dialog.js`)
-  - uses form widget `ConfigurationWidget` (`cpq_dialog.js`)
-  - uses dialog `ConfigurationDialog` (`cpq_dialog.js`)
+  - uses widget `configuration_widget` (`product_opencpq.js`)
+  - uses form widget `ConfigurationWidget` (`product_opencpq.js`)
+  - uses dialog `ConfigurationDialog` (`product_opencpq.js`)
   - uses template `opencpq_configure`
     (`product_opencpq.xml`; configuration tab)
     <br>and template `OpenCPQConfigurator`
@@ -138,7 +134,7 @@ To Do
   undefined.
 - Translate German comments to English. [Mostly done.]
 - Refactorings:
-  - Rename files, views, QWeb templates, JS classes, ...,
+  - Rename views, QWeb templates, JS classes, ...,
     keeping `../product_opencpq_layout` compatible.
     (Apparently the only name from `product_opencpq` used by
     `product_opencpq_layout` is `configuration_html`, at least for now.)
