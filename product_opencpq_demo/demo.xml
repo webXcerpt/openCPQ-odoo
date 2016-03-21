@@ -1,0 +1,55 @@
+<openerp>
+    <data>
+        <record id="os4" model="product.template">
+            <field name="name">OS4 - demo</field>
+            <field name="configurator_ok">true</field>
+            <field name="configurator_type">http://localhost:8080/index.html?OS4</field>
+            <field name="description">Optical switch with 4 slots</field>
+            <field name="list_price">0</field>
+            <field name="weight">0</field>
+            <field name="volume">0</field>
+        </record>
+        <record id="os4-75ohm" model="product.product">
+            <field name="default_code">os4-75ohm</field>
+            <field name="product_tmpl_id" ref="os4"/>
+            <field name="template_ok">true</field>
+            <field name="configuration_text">{"slot1":{"$case":"B:16xE1_75";"$detail":undefined;};"slot2":{"$case":"B:16xE1_75";"$detail":undefined;};"slot3":{"$case":"B:16xE1_75";"$detail":undefined;};"slot4":{"$case":"B:16xE1_75";"$detail":undefined;};}</field>
+            <field name="configuration_html" type="html">
+                <ul class="openCPQ group"><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 1:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (75 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 2:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (75 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 3:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (75 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 4:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (75 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Software and Licenses:</span> <ul class="openCPQ group"><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Release:</span> <span class="openCPQ select"><span class="openCPQ select-item">Rel. 1.0 </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Licenses:</span> <span class="openCPQ select-item">(none)</span></span></li></ul></span></li></ul>
+            </field>
+            <field name="weight">0</field>
+        </record>
+        <record id="os4-120ohm" model="product.product">
+            <field name="default_code">os4-120ohm</field>
+            <field name="product_tmpl_id" ref="os4"/>
+            <field name="template_ok">true</field>
+            <field name="configuration_text">{"slot1":{"$case":"B:16xE1_120";"$detail":undefined;};"slot2":{"$case":"B:16xE1_120";"$detail":undefined;};"slot3":{"$case":"B:16xE1_120";"$detail":undefined;};"slot4":{"$case":"B:16xE1_120";"$detail":undefined;};}</field>
+            <field name="configuration_html" type="html">
+                <ul class="openCPQ group"><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 1:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (120 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 2:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (120 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 3:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (120 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Slot 4:</span> <span class="openCPQ select"><span class="openCPQ select-item">16 x E1 electrical board (120 Ohm) </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Software and Licenses:</span> <ul class="openCPQ group"><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Release:</span> <span class="openCPQ select"><span class="openCPQ select-item">Rel. 1.0 </span></span></span></li><li class="openCPQ "><span class="openCPQ labeled"><span class="openCPQ clabel">Licenses:</span> <span class="openCPQ select-item">(none)</span></span></li></ul></span></li></ul>
+            </field>
+            <field name="weight">0</field>
+        </record>
+
+        <record id="os6" model="product.template">
+            <field name="name">OS6 - demo</field>
+            <field name="configurator_ok">true</field>
+            <field name="configurator_type">http://localhost:8080/index.html?OS6</field>
+            <field name="description">Optical switch with 6 slots</field>
+            <field name="list_price">0</field>
+            <field name="weight">0</field>
+            <field name="volume">0</field>
+        </record>
+        <record id="os6-a" model="product.product">
+            <field name="default_code">os6-a</field>
+            <field name="product_tmpl_id" ref="os6"/>
+            <field name="template_ok">true</field>
+            <field name="weight">0</field>
+        </record>
+        <record id="os6-b" model="product.product">
+            <field name="default_code">os6-b</field>
+            <field name="product_tmpl_id" ref="os6"/>
+            <field name="template_ok">true</field>
+            <field name="weight">0</field>
+        </record>
+    </data>
+</openerp>
