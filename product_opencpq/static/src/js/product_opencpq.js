@@ -131,13 +131,21 @@ var ConfigurationDialog = Dialog.extend({
         switch(data.action) {
             case "ready":
                 this.configuratorReady = true;
-                this.sendToConfigurator("init", {
-                    config: this.getParent().field_manager.get_field_value("configuration_text"),
+                const config =
+                    this.getParent().field_manager
+                    .get_field_value("configuration_text");
+                const initArgs = {
                     embedderOrigin: getOrigin(document.URL)
-                });
+                };
+                // The value of an uninitialized field seems to be `false`
+                // (probably a Python convention), which would confuse the
+                // configurator. So don't send that.
+                if (config !== false)
+                    initArgs.config = config;
+                this.sendToConfigurator("init", initArgs);
                 break;
             case "close": {
-                var args = data.args;
+                const args = data.args;
                 if (args) {
                     var newValues = {};
                     if (args.hasOwnProperty("value"))

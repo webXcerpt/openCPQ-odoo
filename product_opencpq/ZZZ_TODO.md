@@ -127,11 +127,6 @@ Bugs
 To Do
 =====
 
-- When configuring a product variant for the first time, the passed
-  configuration is `false` instead of `"undefined"`.
-  This leads to an error message on the configurator side.
-  The configurator should accept missing and empty values and replace them with
-  undefined.
 - Translate German comments to English. [Mostly done.]
 - Refactorings:
   - Rename views, QWeb templates, JS classes, ...,
