@@ -54,7 +54,7 @@ Server Side
   - `templates.xml`
   - `demo.xml` (used only in demo mode)
   - `static/src/xml/product_opencpq.xml`
-- `demo.xml`:  Demo data, nothing there yet.
+- `demo.xml`:  Demo data.
 
 
 Contributions to Client-Side Code<br>(Managed on the Server Side)

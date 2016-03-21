@@ -3,7 +3,7 @@
     'name': "product_opencpq",
 
     'summary': """
-        Integrate & manage your product variants with the openCPQ 
+        Integrate & manage your product variants with the openCPQ
         product configurator""",
 
     'description': """
@@ -31,8 +31,7 @@ openCPQ - Odoo Integration
         'templates.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo.xml',
-    ],
+    'demo': [],
+
     'qweb': ['static/src/xml/product_opencpq.xml',],
 }
