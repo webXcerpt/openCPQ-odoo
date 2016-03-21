@@ -32,21 +32,13 @@
                         <field name="template_ok"/>
 		                <label for="template_ok"/>
                     </div>
-                <!-- -->
-                <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': ['|',('template_ok', '=', False),'&amp;',('id', '!=', False), ('configurator_ok', '=', False)]}">
-                    <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
-                    <label for="product_tmpl_id"/>
-                    <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}" attrs="{'required': [('id', '!=', False)]}"/>
-                </div>
-                <!--
-                #### @Sebastian: Was bedeutet der folgende Kommentar?
-                Unnoetig und verwirrend: div attrs="{'invisible': [('template_ok', '=', False)]}"
-                Wir brauchen das Feld configurator_ok trotzdem. Fuer Domains weiter unten!
-                -->
-                <div invisible='True'>
-                    <field name="configurator_ok" readonly="True"/>
-		            <label for="configurator_ok" />
-		            </div>
+                    <!-- -->
+                    <div attrs="{'readonly': [('configurator_ok', '=', True)], 'invisible': ['|',('template_ok', '=', False),'&amp;',('id', '!=', False), ('configurator_ok', '=', False)]}">
+                        <!-- <div attrs="{'invisible': [('template_ok', '=', False)]}"> -->
+                        <label for="product_tmpl_id"/>
+                        <field name="product_tmpl_id" domain="[('configurator_ok','=',True)]" options="{'no_create': True}" attrs="{'required': [('id', '!=', False)]}"/>
+                    </div>
+                    <field name="configurator_ok" readonly="True" invisible='True'/>
 		        </div>
 
 		         <!-- Show opencpq-variables and widget in extra-Tab: "Configuration"  -->
@@ -63,33 +55,21 @@
             </field>
         </record>
 
-        <!-- Extend the variant_easy_view as well -->
-        <!--
-            TODO: Remove this?  After all, the easy view is only reachable
-            for Odoo-style variants, not for openCPQ variants.
-            Or should we make the easy view accessible for openCPQ variants as
-            well?
-        -->
+        <!-- Extend the variant "easy view" as well -->
         <record id="product_variant_easy_edit_view5" model="ir.ui.view">
             <field name="name">product.product.view.form.easy</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
             <field name="arch" type="xml">
                 <sheet position="inside">
-                    <!--
-                        TODO: Can't we control invisibility on the level of group "Configuration"?
-                        Or is there a technical reason requiring this control on the field level?
-                        Why are some fields not made invisible?
-                        Why is the widget not part of the group?
-                    -->
-                    <group string="Configuration">
-                        <field name="configuration_text" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-                        <field name="configuration_html" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
-  	                    <field name="product_tmpl_id" readonly="True"/>
-  	                    <field name="configurator_ok" readonly="True"/>
-  			            <field name="configurator_type" readonly="True" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
+                    <field name="template_ok" invisible="True"/>
+                    <!-- TODO: Is it ok to check template_ok?  Or should we check configurator_ok? -->
+                    <group string="Configuration" attrs="{'invisible': [('template_ok', '=', False)]}">
+                        <widget type="configuration_widget"/>
+                        <field name="configurator_type" invisible="True"/>
+                        <field name="configuration_text" invisible="True"/>
+                        <field name="configuration_html" widget="html_frame" invisible="True"/>
                 	</group>
-                	<widget type="configuration_widget" attrs="{'invisible': [('configurator_ok', '=', False)]}"/>
                 </sheet>
             </field>
         </record>

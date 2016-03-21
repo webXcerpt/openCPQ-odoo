@@ -34,9 +34,6 @@ Functionality and Data Model
     configurator.
 - The "easy view" for product variants (used when viewing the variants of a
   particular product template) is also extended to include the configuration.
-  <br>
-  *[Does this make sense or should this be removed?  Currently the easy view
-  is only accessible for "Odoo variants", not for "openCPQ variants".]*
 
 
 Code Structure
@@ -70,7 +67,7 @@ Contributions to Client-Side Code<br>(Managed on the Server Side)
   - `product_normal_form_view3`:
 	- extends the view for `product.product` (i.e., product variants)
 	- contributes the "Configuration" tab and more
-  - `product_variant_easy_edit_view5`: *[Remove? See above.]*
+  - `product_variant_easy_edit_view5`:
 	 - extends the "easy view" for `product.product` (i.e., product variants)
 - `templates.xml`:
   contributes links to our static resources (JS and styling, but not
@@ -106,7 +103,7 @@ Dependency Chains
   - odoo standard view `product.product_normal_form_view`
   - extended by view `product_normal_form_view3` (`views.xml`)
   - uses widget `configuration_widget` (`product_opencpq.js`)
-  - uses form widget `ConfigurationWidget` (`product_opencpq.js`)
+  - implemented as form widget `ConfigurationWidget` (`product_opencpq.js`)
   - uses dialog `ConfigurationDialog` (`product_opencpq.js`)
   - uses template `opencpq_configure`
     (`product_opencpq.xml`; configuration tab)
