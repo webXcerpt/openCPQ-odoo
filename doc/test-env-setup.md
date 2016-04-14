@@ -149,14 +149,16 @@ architecture.)
 		--db-filter="^odoo" \
 	    --addons-path=./addons,../openCPQ-odoo \
 		-i product_opencpq,product_opencpq_layout
-	  ### -i installs the specified modules and their dependancies. 
-	  ### You could do this manually in the Browser as well 
+	  ### -i installs the specified modules and their dependencies. 
+	  ### You could do this manually in the browser as well 
 	  ```
+	- Next time, you can use the "upward" cursor key to retrieve the start 
+	  command in the shell, so you need not retype it.
   - Start Firefox or Chrome and open `localhost:8069`.
 	- Login with user and password "admin".
 	  (Let your browser remember these credentials.)
     - Open the "Apps" page.
-	  - Note, that the following Modules are already installed: "sales", 
+	  - Note, that the following modules are already installed: "sales", 
 	    "product_opencpq" and "product_opencpq_layout"
 	- Activate variants by selecting
 	  "Sales" > "Configuration" > "Settings" > "Products" > "Product Variants" >
@@ -221,7 +223,7 @@ directories and invoke the required build steps:
 		  ### Note that we changed "-i" to "-u" 
 		  ### This upgrades the specified modules instead of installing it
 		  ```
-      - If no Python Code has changed, it´s enough to update the two modules 
+      - If no python code has changed, it´s enough to update the two modules 
         in the "Apps" section of the Odoo UI (no server restart required).
     - If you are running Odoo in the browser, reload the page.
 	  <br>
