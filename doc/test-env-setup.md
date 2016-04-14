@@ -68,13 +68,17 @@ architecture.)
     "Devices" > "Shared Clipboard" > "Bidirectional"
 	so that you can easily copy commands from this document to your virtual
 	machine.
-  - Start Firefox and download Chrome from
-    https://www.google.de/chrome/browser/desktop/.
-	Install Chrome as suggested.
   - Start a terminal.
     (Click the violet Ubuntu icon in the toolbar and type "terminal".
 	Select the "Terminal" application.)
   - In the terminal:
+    - Install Chrome
+
+	  ```sh
+	  sudo apt-get install libxss1 libappindicator1 libindicator7
+	  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	  sudo dpkg -i google-chrome*.deb
+	  ```
 	- Install Git and Wkhtmltopdf:
 
 	  ```sh
@@ -144,18 +148,16 @@ architecture.)
 	    --database=odoo_test1 \
 		--db-filter="^odoo" \
 	    --addons-path=./addons,../openCPQ-odoo \
-		-u product_opencpq,product_opencpq_layout
-	  ### Does "-u" accept a comma-separated list?
+		-i product_opencpq,product_opencpq_layout
+	  ### -i installs the specified modules and their dependancies. 
+	  ### You could do this manually in the Browser as well 
 	  ```
   - Start Firefox or Chrome and open `localhost:8069`.
 	- Login with user and password "admin".
 	  (Let your browser remember these credentials.)
     - Open the "Apps" page.
-	  - Clear the search field and enter "sales".
-	    Click the "Install" button of the "Sales Management" box.
-	  - Clear the search field and enter "openCPQ".
-	    Click the "Install" buttons in the two boxes "product_opencpq" and
-	    "product_opencpq_layout".
+	  - Note, that the following Modules are already installed: "sales", 
+	    "product_opencpq" and "product_opencpq_layout"
 	- Activate variants by selecting
 	  "Sales" > "Configuration" > "Settings" > "Products" > "Product Variants" >
 	  "Products can have several attributes, ..."
@@ -207,11 +209,20 @@ directories and invoke the required build steps:
       - In certain cases it is necessary to restart the Odoo server in its
 	    terminal:
 	    - Kill it with control-C.
-		- Start it again with the command `./odoo.py ...` given above.
-		  (You can use the "upward" cursor key to retrieve the start command in
-		  the shell, so you need not retype it.)
-      - Update the two modules "product_opencpq" and
-        "product_opencpq_layout" in the "Apps" section of the Odoo UI.
+		- Start it again with the command 
+
+		  ```sh
+		  cd odoo
+		  ./odoo.py \
+		    --database=odoo_test1 \
+			--db-filter="^odoo" \
+		    --addons-path=./addons,../openCPQ-odoo \
+			-u product_opencpq,product_opencpq_layout
+		  ### Note that we changed "-i" to "-u" 
+		  ### This upgrades the specified modules instead of installing it
+		  ```
+      - If no Python Code has changed, it´s enough to update the two modules 
+        in the "Apps" section of the Odoo UI (no server restart required).
     - If you are running Odoo in the browser, reload the page.
 	  <br>
 	  *If you are not in Odoo's debug mode, you might need
