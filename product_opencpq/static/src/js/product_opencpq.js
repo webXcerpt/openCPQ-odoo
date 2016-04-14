@@ -153,7 +153,7 @@ var ConfigurationDialog = Dialog.extend({
                     if (args.hasOwnProperty("html"))
                         newValues.configuration_html = args.html
                     if (args.hasOwnProperty("price"))
-                        newValues.lst_price = args.price;
+                        newValues.configuration_price_extra = args.price;
                     var fm = this.getParent().field_manager;
                     fm.set_values(newValues);
                     // Mark form as dirty.  Apparently this is not being done by
@@ -182,8 +182,8 @@ var ConfigurationWidget = form_common.FormWidget.extend({
         this._super.apply(this, arguments);
         this.$el.html(QWeb.render("opencpq_configure", {}));
 
-		this.display_html();
-		this.field_manager.on("field_changed:configuration_html", this, this.display_html);
+		this.display_results();
+		this.field_manager.on("field_changed:configuration_html", this, this.display_results);
 
         this.on("change:effective_readonly", this, this.check_readonly);
         this.check_readonly();
@@ -194,9 +194,11 @@ var ConfigurationWidget = form_common.FormWidget.extend({
         this.$el.find(".opencpq_button_class").prop('disabled', ro);
     },
 
-	display_html: function() {
+	display_results: function() {
 		var html = this.field_manager.get_field_value("configuration_html");
 		this.$el.find(".opencpq_html_class").html(html);
+        var price_extra = this.field_manager.get_field_value("configuration_price_extra");
+        this.$el.find(".opencpq_price_extra_class").text(price_extra);
 	},
 
     display_dialog: function() {

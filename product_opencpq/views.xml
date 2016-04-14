@@ -48,7 +48,12 @@
                             <widget type="configuration_widget"/>
 	            		    <field name="configurator_type" invisible="True"/>
                             <field name="configuration_text" invisible="True"/>
-                            <field name="configuration_html" widget="html_frame" invisible="True"/>
+                            <field name="configuration_html" invisible="True"/>
+                            <!--
+                                The cfg extra price should be readonly in the UI,
+                                but nevertheless store its data upon "Save".
+                            -->
+                            <field name="configuration_price_extra" invisible="False"/>
                 	    </group>
                     </page>
                 </xpath>
@@ -68,7 +73,8 @@
                         <widget type="configuration_widget"/>
                         <field name="configurator_type" invisible="True"/>
                         <field name="configuration_text" invisible="True"/>
-                        <field name="configuration_html" widget="html_frame" invisible="True"/>
+                        <field name="configuration_html" invisible="True"/>
+                        <field name="configuration_price_extra" invisible="False"/>
                 	</group>
                 </sheet>
             </field>

@@ -12,8 +12,8 @@
 				Configure
 			</button>
         </div>
-		<div class="opencpq_html_class">
-		</div>
+		<div class="opencpq_html_class"/>
+		<div class="opencpq_price_extra_class"/>
     </t>
 
 	<!-- Contents of the configuration dialog -->

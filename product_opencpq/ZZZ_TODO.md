@@ -142,4 +142,91 @@ Open Questions
 
 Should there be a utility lib provided by openCPQ with an API that's more
 comfortable than raw messaging?  In other words: Is there some subset of the
-odoo/openCPQ integration code that might be reused by other openCPQ integrations?
+odoo/openCPQ integration code that might be reused by other openCPQ
+integrations?
+
+
+Phone Call Sebastian/Tim/Heribert, 2016-03-29
+--------------------------------------------------------
+
+- Prices
+  - Start from button "Variant Prices" to see how per-variant prices work.
+  - See also setting "Adv. pricing based on formula"
+- Bugs
+  - Button "Variants" should always appear for products with openCPQ-based
+    configuration.
+  - Button "Configure" should be of class "primary" (and thus blue) when
+    activated.
+- Notes from looking through the Odoo code:
+  - Button "Variant Prices" is visible upon multiple variants.  (See below.)
+    **Make visible for openCPQ products.**
+  - `product_template` has a computed field `product_variant_count`
+    - 27 occurrences in std Odoo addons:
+      - 15 in "product":
+        - 3 in `product.py`, class/table `product_template`:
+          - 1 declaration as a computed field using function
+            `_get_product_variant_count`, which actually gets the length of
+            `product_variant_ids`
+          - 1 test for == 1 in function `_compute_product_template_field`,
+            reading the computed fields `standard_price`, `volume`, and `weight`
+            from the variant if there is a single one.
+          - 1 test for == 1 in function `_set_product_template_field`, writing
+            the same computed fields to a single variant.
+        - 1 in `pricelist.py`, class/table `product_pricelist`:
+          - 1 test for > 1 in function `_price_rule_get_multi`
+            ignore a pricing rule if we have multiple variants
+            and/or other conditions hold.
+            - *[This line seems to assume that there is always at least
+              one variant.  This might lead to exceptions!]*
+        - 11 in `product_view.xml`:
+          - 3 occurrences as form fields (`product_template_kanban_view`,
+            `product_template_only_form_view`, and `product_template_form_view`,
+            the first one being invisible, the second one using widget
+            `statinfo`)
+          - 6 occurrences in invisibility tests
+            - 2 visible on multiple variants:
+              - line 78:
+                button "Variant Prices" in `product_template_form_view`
+              - line 323:
+                button/field "Variants" in `product_template_only_form_view`
+            - 4 visible on a single variant (or none):
+              - lines 129, 130:
+                field inventory group weight in `product_template_form_view`
+              - lines 316, 317:
+                fields `default_code` and `barcode` in
+                `product_template_only_form_view`
+          - 2 occurrences in conditional output
+            - lines 369, 371: display # of variants only for multiple variants
+      - 12 in "stock":
+        - 8 occurrences just for passing around the value
+        - 2 occurrences as invisible fields
+        - 2 occurences using these invisible fields, making field
+          `product_id` readonly if there is exactly 1 product variant.
+          - I guess that in the case of multiple variants you can select another
+            variant (via its product_id) from a menu.  If there's only one
+            variant, there is no point to display a menu here.
+    - What to do?
+      - Change some/all of the tests on `product_variant_count`?
+      - Or add dummy variants for openCPQ-configurable templates?
+      - Or tweak the computation of the computed field, returning infinity
+      for openCPQ-configurable products?
+
+  - **Current Problems (2016-04-07 evening)**
+    - My overridden price-calculation methods are not invoked.
+      (Even when I add `print` statements to the original code, they are not
+      executed.  But in some other methods it does work.  So the problem is
+      not about writing to stdout.)
+      - Am I displaying the wrong price?  Which one should I use?
+      - Notice that Python-side code will only be invoked upon "save".
+    - How to make field `configuration_price_extra` readonly but write it back
+      to the server nevertheless?
+      (There are quite a few posts and bug reports on this problem on the web.
+      These people usually don't have a widget with multiple outputs, but just
+      want a read-only field to be recomputed and stored upon changes of another
+      field.)
+
+- Allow to set the "internal reference" from the config dialog?
+- Product name (in product-variant form)
+  *[What did this note mean?]*
+- Demo instructions
+- Upload to Odoo app store (https://www.odoo.com/apps/upload)

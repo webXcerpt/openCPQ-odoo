@@ -4,6 +4,8 @@
 
 from openerp import api
 from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
+
 
 class product_template(osv.osv):
     _inherit = 'product.template'
@@ -118,6 +120,8 @@ class product_template(osv.osv):
         return res
     '''
 
+def log_____________(s):
+    print "######################## " + s
 
 class product_product(osv.osv):
     _inherit = 'product.product'
@@ -126,4 +130,30 @@ class product_product(osv.osv):
         'configuration_text': fields.text('Configuraton Text', help='...'),
         'configuration_html': fields.html('Configuration Html'),
         #'configuration_html': fields.html('Configuration Html', sanitize=True, strip_style=True),
+        'configuration_price_extra': fields.float('Configuration Price Extra', digits_compute=dp.get_precision('Product Price')),
     }
+    _defaults = {
+        'configuration_price_extra': 0.0,
+    }
+
+    # The superclass suggests to override price_get(...), but that would require
+    # to repeat a lot of functionality here (such as taking into account units
+    # of measure and currencies).  So we override _get_price_extra(...) even
+    # though that is supposed to be private.
+    # (Or could we override the computed column "price_extra"?)
+    def _get_price_extra(self, cr, uid, ids, name, args, context=None):
+        log_____________("GPI ids: %s" % ids)
+        result = {}
+        for key, value in super(product_product, self)._get_price_extra(cr, uid, ids, name, args, context=context).items():
+            product = self.browse(cr, uid, key, context=context)
+            log_____________("id: %s, raw: %s, prod: %s" % (key, value, product))
+            if product and product.configuration_price_extra:
+                log_____________("cfg_extra: %s" % product.configuration_price_extra)
+                value += product.configuration_price_extra
+            log_____________("adjusted: %s" % value)
+            result[key] = value
+        return result
+
+    def price_get(self, cr, uid, ids, ptype='list_price', context=None):
+        log_____________("PG")
+        return super(product_product, self).price_get(cr, uid, ids, ptype=ptype, context=context)
