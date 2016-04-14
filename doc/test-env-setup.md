@@ -149,16 +149,16 @@ architecture.)
 		--db-filter="^odoo" \
 	    --addons-path=./addons,../openCPQ-odoo \
 		-i product_opencpq,product_opencpq_layout
-	  ### -i installs the specified modules and their dependencies. 
-	  ### You could do this manually in the browser as well 
+	  # -i installs the specified modules and their dependencies.
+	  # You could do this manually in the browser as well
 	  ```
-	- Next time, you can use the "upward" cursor key to retrieve the start 
+	- Next time, you can use the "upward" cursor key to retrieve the start
 	  command in the shell, so you need not retype it.
   - Start Firefox or Chrome and open `localhost:8069`.
 	- Login with user and password "admin".
 	  (Let your browser remember these credentials.)
     - Open the "Apps" page.
-	  - Note, that the following modules are already installed: "sales", 
+	  - Notice that the following modules are already installed: "sales",
 	    "product_opencpq" and "product_opencpq_layout"
 	- Activate variants by selecting
 	  "Sales" > "Configuration" > "Settings" > "Products" > "Product Variants" >
@@ -211,7 +211,7 @@ directories and invoke the required build steps:
       - In certain cases it is necessary to restart the Odoo server in its
 	    terminal:
 	    - Kill it with control-C.
-		- Start it again with the command 
+		- Start it again with the command
 
 		  ```sh
 		  cd odoo
@@ -220,10 +220,10 @@ directories and invoke the required build steps:
 			--db-filter="^odoo" \
 		    --addons-path=./addons,../openCPQ-odoo \
 			-u product_opencpq,product_opencpq_layout
-		  ### Note that we changed "-i" to "-u" 
-		  ### This upgrades the specified modules instead of installing it
+		  # Note that we changed "-i" to "-u"
+		  # This upgrades the specified modules instead of installing it
 		  ```
-      - If no python code has changed, it´s enough to update the two modules 
+      - If no Python code has changed, it´s enough to update the two modules
         in the "Apps" section of the Odoo UI (no server restart required).
     - If you are running Odoo in the browser, reload the page.
 	  <br>
